@@ -25,6 +25,8 @@ export default function AdminPlans() {
     queryFn: () => client.get('/plans/all').then(r => r.data),
   })
 
+  const resetForm = () => { setShowForm(false); setEditPlan(null); setName(''); setPrice(''); setDays('') }
+
   const createMutation = useMutation({
     mutationFn: (data: { name: string; price: number; durationDays: number }) => client.post('/plans', data),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['admin-plans'] }); resetForm() },
@@ -39,8 +41,6 @@ export default function AdminPlans() {
     mutationFn: (id: string) => client.delete(`/plans/${id}`),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['admin-plans'] }),
   })
-
-  const resetForm = () => { setShowForm(false); setEditPlan(null); setName(''); setPrice(''); setDays('') }
 
   const openEdit = (plan: Plan) => {
     setEditPlan(plan); setName(plan.name); setPrice(String(plan.price)); setDays(String(plan.durationDays)); setShowForm(true)
