@@ -1,44 +1,32 @@
 import { useState } from 'react'
 import { Menu } from 'lucide-react'
 import Sidebar from './Sidebar'
+import styles from './Layout.module.css'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className="flex min-h-screen bg-background">
-      {/* Mobile backdrop */}
-      {open && (
-        <div
-          className="fixed inset-0 bg-black/60 z-20 lg:hidden"
-          onClick={() => setOpen(false)}
-        />
-      )}
+    <div className={styles.wrapper}>
+      {open && <div className={styles.overlay} onClick={() => setOpen(false)} />}
 
-      {/* Sidebar drawer */}
-      <div
-        className={`fixed top-0 left-0 h-full z-30 transition-transform duration-300 lg:static lg:translate-x-0 lg:z-auto ${
-          open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-        }`}
-      >
+      <div className={`${styles.drawerWrap} ${open ? styles.drawerOpen : ''}`}>
         <Sidebar onClose={() => setOpen(false)} />
       </div>
 
-      {/* Page content */}
-      <div className="flex-1 flex flex-col min-w-0">
-        {/* Mobile top bar */}
-        <div className="lg:hidden flex items-center gap-4 px-4 py-3 bg-surface border-b border-border-dark sticky top-0 z-10">
-          <button
-            onClick={() => setOpen(true)}
-            className="text-gray-400 hover:text-white transition-colors"
-            aria-label="Abrir menú"
-          >
-            <Menu size={24} />
+      <div className={styles.desktopSidebar}>
+        <Sidebar />
+      </div>
+
+      <div className={styles.content}>
+        <div className={styles.topBar}>
+          <button className={styles.hamburger} onClick={() => setOpen(true)} aria-label="Abrir menú">
+            <Menu size={22} />
           </button>
-          <span className="text-white font-black tracking-widest text-lg">SPORTLIFE</span>
+          <span className={styles.topBarLogo}>SPORTLIFE</span>
         </div>
 
-        <main className="flex-1 p-4 lg:p-10 overflow-y-auto">
+        <main className={styles.main}>
           {children}
         </main>
       </div>

@@ -1,0 +1,128 @@
+.pageHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.subtitle { color: var(--text-secondary); font-size: 13px; margin-top: 4px; }
+.loading  { color: var(--text-secondary); font-size: 13px; }
+
+.tableWrap {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.scrollX { overflow-x: auto; }
+
+.table { width: 100%; border-collapse: collapse; }
+
+.thead { background: var(--bg-elevated); }
+
+.th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+}
+
+.tr { border-bottom: 1px solid var(--border); }
+.tr:last-child { border-bottom: none; }
+.tr:hover { background: var(--bg-elevated); }
+
+.tdPrimary {
+  padding: 0.875rem 1rem;
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tdSecondary {
+  padding: 0.875rem 1rem;
+  color: var(--text-secondary);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.tdMuted {
+  padding: 0.875rem 1rem;
+  color: var(--text-secondary);
+  font-size: 11px;
+  white-space: nowrap;
+  opacity: 0.7;
+}
+
+.tdMono {
+  padding: 0.875rem 1rem;
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-family: monospace;
+  white-space: nowrap;
+}
+
+.tdAccent {
+  padding: 0.875rem 1rem;
+  color: var(--orange);
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.td { padding: 0.875rem 1rem; }
+
+.empty {
+  padding: 2.5rem 1rem;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.roleBadge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 1px solid;
+  border-radius: 0;
+}
+
+.roleAdmin  { color: var(--red);  border-color: var(--red);  background: rgba(192,57,43,0.1); }
+.roleMember { color: #63B3ED;     border-color: #63B3ED;     background: rgba(99,179,237,0.1); }
+
+.btnPrimary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.625rem 1.25rem;
+  background: var(--red);
+  color: white;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s;
+  border-radius: 2px;
+}
+
+.btnPrimary:hover { background: var(--red-dark); }

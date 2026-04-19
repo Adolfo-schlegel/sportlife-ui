@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import Layout from '../../components/Layout'
 import StatusBadge from '../../components/StatusBadge'
 import client from '../../api/client'
+import styles from '../../styles/table.module.css'
 
 interface Payment {
   id: string
@@ -27,46 +28,40 @@ export default function AdminPayments() {
 
   return (
     <Layout>
-      <div className="mb-8">
-        <h1 className="text-2xl lg:text-3xl font-black text-white">Pagos</h1>
-        <p className="text-gray-500 mt-1 text-sm">Historial completo de pagos</p>
+      <div className={styles.pageHeader}>
+        <div>
+          <h1 className={styles.title}>Pagos</h1>
+          <p className={styles.subtitle}>Historial completo de pagos</p>
+        </div>
       </div>
 
       {isLoading ? (
-        <div className="text-gray-500 text-sm">Cargando pagos...</div>
+        <div className={styles.loading}>Cargando pagos...</div>
       ) : (
-        <div className="bg-surface border border-border-dark rounded-xl overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse">
-              <thead>
-                <tr className="bg-background border-b border-border-dark">
+        <div className={styles.tableWrap}>
+          <div className={styles.scrollX}>
+            <table className={styles.table}>
+              <thead className={styles.thead}>
+                <tr>
                   {['Miembro', 'Plan', 'Monto', 'Estado', 'Fecha', 'MP ID'].map(h => (
-                    <th key={h} className="px-4 py-3 text-left text-[11px] font-bold text-gray-600 uppercase tracking-widest whitespace-nowrap">
-                      {h}
-                    </th>
+                    <th key={h} className={styles.th}>{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {payments.map((p, i) => (
-                  <tr key={p.id} className={i < payments.length - 1 ? 'border-b border-[#1a1a1a]' : ''}>
-                    <td className="px-4 py-3.5 text-white text-sm whitespace-nowrap">{p.userName}</td>
-                    <td className="px-4 py-3.5 text-gray-500 text-sm whitespace-nowrap">{p.planName}</td>
-                    <td className="px-4 py-3.5 text-primary text-sm font-bold whitespace-nowrap">{formatMoney(p.amount)}</td>
-                    <td className="px-4 py-3.5"><StatusBadge status={p.status} /></td>
-                    <td className="px-4 py-3.5 text-gray-600 text-xs whitespace-nowrap">
-                      {new Date(p.createdAt).toLocaleDateString('es-AR')}
-                    </td>
-                    <td className="px-4 py-3.5 text-gray-600 text-xs font-mono whitespace-nowrap">
-                      {p.mercadoPagoPaymentId ? p.mercadoPagoPaymentId.slice(0, 12) + '...' : '-'}
-                    </td>
+                {payments.map(p => (
+                  <tr key={p.id} className={styles.tr}>
+                    <td className={styles.tdPrimary}>{p.userName}</td>
+                    <td className={styles.tdSecondary}>{p.planName}</td>
+                    <td className={styles.tdAccent}>{formatMoney(p.amount)}</td>
+                    <td className={styles.td}><StatusBadge status={p.status} /></td>
+                    <td className={styles.tdMuted}>{new Date(p.createdAt).toLocaleDateString('es-AR')}</td>
+                    <td className={styles.tdMono}>{p.mercadoPagoPaymentId ? p.mercadoPagoPaymentId.slice(0, 12) + '...' : '-'}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            {payments.length === 0 && (
-              <div className="px-4 py-8 text-center text-gray-600 text-sm">No hay pagos registrados</div>
-            )}
+            {payments.length === 0 && <div className={styles.empty}>No hay pagos registrados</div>}
           </div>
         </div>
       )}

@@ -1,0 +1,142 @@
+.header { margin-bottom: 2rem; }
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+}
+
+.subtitle { color: var(--text-secondary); font-size: 13px; margin-top: 4px; }
+.loading  { color: var(--text-secondary); font-size: 13px; }
+
+.memberCard {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--border);
+  padding: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.memberCardActive   { border-left-color: var(--green); }
+.memberCardExpiring { border-left-color: var(--yellow); }
+.memberCardExpired  { border-left-color: var(--red); }
+
+.cardTop {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.planMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.planMetaLabel {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.planName {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.75rem;
+  line-height: 1;
+}
+
+.daysBox {
+  text-align: center;
+  background: rgba(0,0,0,0.4);
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--border);
+}
+
+.daysNumber {
+  font-size: 3.5rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--green-bright);
+}
+
+.daysNumberExpiring { color: var(--yellow); }
+
+.daysLabel {
+  font-size: 10px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-top: 4px;
+}
+
+.expiryRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  margin-top: 1rem;
+}
+
+.iconActive  { color: var(--green-bright); }
+.iconExpired { color: var(--red); }
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.btnPrimary {
+  padding: 0.75rem 1.5rem;
+  background: var(--red);
+  color: white;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s;
+  border-radius: 2px;
+}
+
+.btnPrimary:hover { background: var(--red-dark); }
+
+.btnOutline {
+  padding: 0.75rem 1.25rem;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 13px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+  border-radius: 2px;
+}
+
+.btnOutline:hover { border-color: var(--border-hot); color: var(--text-primary); }
+
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(212, 160, 23, 0.08);
+  border: 1px solid var(--yellow);
+  padding: 0.75rem 1rem;
+  color: var(--yellow);
+  font-size: 13px;
+}

@@ -1,0 +1,46 @@
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border-radius: 0;
+  border: 1px solid;
+}
+
+.active {
+  background: rgba(74, 122, 58, 0.15);
+  color: var(--green-bright);
+  border-color: var(--green);
+}
+
+.expiring {
+  background: rgba(212, 160, 23, 0.12);
+  color: var(--yellow);
+  border-color: var(--yellow);
+}
+
+.expired {
+  background: rgba(192, 57, 43, 0.12);
+  color: var(--red);
+  border-color: var(--red);
+}
+
+.pending {
+  background: rgba(204, 85, 0, 0.12);
+  color: var(--orange);
+  border-color: var(--orange);
+}
+
+.approved {
+  background: rgba(74, 122, 58, 0.15);
+  color: var(--green-bright);
+  border-color: var(--green);
+}
+
+.none {
+  background: rgba(122, 143, 122, 0.1);
+  color: var(--text-secondary);
+  border-color: var(--border);
+}

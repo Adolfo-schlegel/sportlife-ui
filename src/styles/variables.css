@@ -1,0 +1,16 @@
+:root {
+  --bg-base:      #080C08;
+  --bg-surface:   #0F1A0F;
+  --bg-elevated:  #162116;
+  --border:       #2A3D2A;
+  --border-hot:   #CC5500;
+  --text-primary:   #E8E8E0;
+  --text-secondary: #7A8F7A;
+  --red:          #C0392B;
+  --red-dark:     #A93226;
+  --orange:       #CC5500;
+  --orange-dark:  #AA4400;
+  --green:        #4A7A3A;
+  --green-bright: #6BAF5A;
+  --yellow:       #D4A017;
+}
