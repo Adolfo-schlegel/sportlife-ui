@@ -18,8 +18,8 @@ export default function Register() {
     if (password.length < 6) { setError('La contraseña debe tener al menos 6 caracteres'); return }
     setLoading(true)
     try {
-      await register(name, email, password)
-      navigate('/dashboard')
+      const u = await register(name, email, password)
+      navigate(u.role === 'admin' ? '/admin' : '/dashboard')
     } catch (err: unknown) {
       const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message
       setError(msg || 'Error al registrarse')
@@ -28,54 +28,78 @@ export default function Register() {
     }
   }
 
-  const inputStyle = {
-    width: '100%', padding: '12px 14px', background: '#0A0A0A',
-    border: '1px solid #333', borderRadius: 8, color: '#fff', fontSize: 14,
-    outline: 'none', boxSizing: 'border-box' as const
-  }
-  const labelStyle = { display: 'block', fontSize: 12, fontWeight: 600 as const, color: '#888', marginBottom: 6, textTransform: 'uppercase' as const, letterSpacing: 1 }
-
   return (
-    <div style={{ minHeight: '100vh', background: '#0A0A0A', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
-      <div style={{ width: '100%', maxWidth: 400, background: '#111', border: '1px solid #222', borderRadius: 12, padding: 40 }}>
-        <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <Dumbbell size={40} color="#E53E3E" style={{ marginBottom: 12 }} />
-          <h1 style={{ fontSize: 28, fontWeight: 800, color: '#fff', letterSpacing: 1 }}>SPORTLIFE</h1>
-          <p style={{ color: '#666', fontSize: 13, marginTop: 4 }}>Crear nueva cuenta</p>
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <div className="w-full max-w-md bg-surface border border-border-dark rounded-xl p-8">
+        <div className="text-center mb-8">
+          <Dumbbell size={40} className="text-primary mx-auto mb-3" />
+          <h1 className="text-3xl font-black text-white tracking-wide">SPORTLIFE</h1>
+          <p className="text-gray-500 text-sm mt-1">Crear nueva cuenta</p>
         </div>
 
-        <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: 16 }}>
-            <label style={labelStyle}>Nombre completo</label>
-            <input type="text" value={name} onChange={e => setName(e.target.value)} required style={inputStyle} placeholder="Juan García" />
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2">
+              Nombre completo
+            </label>
+            <input
+              type="text"
+              value={name}
+              onChange={e => setName(e.target.value)}
+              required
+              placeholder="Juan García"
+              className="w-full px-4 py-3 bg-background border border-gray-700 rounded-lg text-white text-sm focus:outline-none focus:border-primary transition-colors"
+            />
           </div>
-          <div style={{ marginBottom: 16 }}>
-            <label style={labelStyle}>Email</label>
-            <input type="email" value={email} onChange={e => setEmail(e.target.value)} required style={inputStyle} placeholder="tu@email.com" />
+
+          <div>
+            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2">
+              Email
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              required
+              placeholder="tu@email.com"
+              className="w-full px-4 py-3 bg-background border border-gray-700 rounded-lg text-white text-sm focus:outline-none focus:border-primary transition-colors"
+            />
           </div>
-          <div style={{ marginBottom: 24 }}>
-            <label style={labelStyle}>Contraseña</label>
-            <input type="password" value={password} onChange={e => setPassword(e.target.value)} required style={inputStyle} placeholder="••••••••" />
+
+          <div>
+            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2">
+              Contraseña
+            </label>
+            <input
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              required
+              placeholder="••••••••"
+              className="w-full px-4 py-3 bg-background border border-gray-700 rounded-lg text-white text-sm focus:outline-none focus:border-primary transition-colors"
+            />
           </div>
 
           {error && (
-            <div style={{ background: 'rgba(229,62,62,0.1)', border: '1px solid rgba(229,62,62,0.3)', borderRadius: 8, padding: '10px 14px', marginBottom: 16, color: '#E53E3E', fontSize: 13 }}>
+            <div className="bg-primary/10 border border-primary/30 rounded-lg px-4 py-3 text-primary text-sm">
               {error}
             </div>
           )}
 
-          <button type="submit" disabled={loading} style={{
-            width: '100%', padding: '14px', background: loading ? '#666' : '#E53E3E',
-            border: 'none', borderRadius: 8, color: '#fff', fontSize: 15,
-            fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer', letterSpacing: 1, textTransform: 'uppercase'
-          }}>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-3 bg-primary hover:bg-red-600 disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-bold uppercase tracking-widest rounded-lg text-sm transition-colors"
+          >
             {loading ? 'Registrando...' : 'CREAR CUENTA'}
           </button>
         </form>
 
-        <p style={{ textAlign: 'center', marginTop: 20, color: '#666', fontSize: 13 }}>
+        <p className="text-center mt-6 text-gray-500 text-sm">
           ¿Ya tenés cuenta?{' '}
-          <Link to="/login" style={{ color: '#E53E3E', textDecoration: 'none', fontWeight: 600 }}>Ingresar</Link>
+          <Link to="/login" className="text-primary font-semibold hover:underline">
+            Ingresar
+          </Link>
         </p>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
-import Sidebar from '../../components/Sidebar'
+import Layout from '../../components/Layout'
 import client from '../../api/client'
 import { Plus, Edit, Trash2 } from 'lucide-react'
 
@@ -56,69 +56,86 @@ export default function AdminPlans() {
   const formatPrice = (n: number) =>
     new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', minimumFractionDigits: 0 }).format(n)
 
-  const inputStyle = { width: '100%', padding: '10px 12px', background: '#0A0A0A', border: '1px solid #333', borderRadius: 8, color: '#fff', fontSize: 14, outline: 'none', boxSizing: 'border-box' as const }
+  const inputClass = 'w-full px-3 py-2.5 bg-background border border-gray-700 rounded-lg text-white text-sm focus:outline-none focus:border-primary transition-colors'
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: '#0A0A0A' }}>
-      <Sidebar />
-      <main style={{ flex: 1, padding: '32px 40px', overflowY: 'auto' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32 }}>
-          <div>
-            <h1 style={{ fontSize: 28, fontWeight: 800, color: '#fff' }}>Planes</h1>
-            <p style={{ color: '#666', marginTop: 4 }}>Gestión de planes de membresía</p>
-          </div>
-          <button onClick={() => { resetForm(); setShowForm(true) }} style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#E53E3E', border: 'none', borderRadius: 8, color: '#fff', padding: '10px 20px', cursor: 'pointer', fontWeight: 700, fontSize: 13 }}>
-            <Plus size={16} /> NUEVO PLAN
-          </button>
+    <Layout>
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+        <div>
+          <h1 className="text-2xl lg:text-3xl font-black text-white">Planes</h1>
+          <p className="text-gray-500 mt-1 text-sm">Gestión de planes de membresía</p>
         </div>
+        <button
+          onClick={() => { resetForm(); setShowForm(true) }}
+          className="flex items-center gap-2 bg-primary hover:bg-red-600 text-white px-5 py-2.5 rounded-lg font-bold text-sm transition-colors"
+        >
+          <Plus size={16} /> NUEVO PLAN
+        </button>
+      </div>
 
-        {showForm && (
-          <div style={{ background: '#111', border: '1px solid #333', borderRadius: 12, padding: 24, marginBottom: 24 }}>
-            <h3 style={{ color: '#fff', fontWeight: 700, marginBottom: 16 }}>{editPlan ? 'Editar Plan' : 'Nuevo Plan'}</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16, marginBottom: 16 }}>
-              <div>
-                <label style={{ display: 'block', fontSize: 11, color: '#666', marginBottom: 6, textTransform: 'uppercase' }}>Nombre</label>
-                <input value={name} onChange={e => setName(e.target.value)} style={inputStyle} placeholder="Plan Mensual" />
-              </div>
-              <div>
-                <label style={{ display: 'block', fontSize: 11, color: '#666', marginBottom: 6, textTransform: 'uppercase' }}>Precio (ARS)</label>
-                <input type="number" value={price} onChange={e => setPrice(e.target.value)} style={inputStyle} placeholder="15000" />
-              </div>
-              <div>
-                <label style={{ display: 'block', fontSize: 11, color: '#666', marginBottom: 6, textTransform: 'uppercase' }}>Días</label>
-                <input type="number" value={days} onChange={e => setDays(e.target.value)} style={inputStyle} placeholder="30" />
-              </div>
+      {showForm && (
+        <div className="bg-surface border border-gray-700 rounded-xl p-6 mb-6">
+          <h3 className="text-white font-bold mb-4">{editPlan ? 'Editar Plan' : 'Nuevo Plan'}</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+            <div>
+              <label className="block text-[11px] text-gray-500 uppercase tracking-widest mb-2">Nombre</label>
+              <input value={name} onChange={e => setName(e.target.value)} className={inputClass} placeholder="Plan Mensual" />
             </div>
-            <div style={{ display: 'flex', gap: 10 }}>
-              <button onClick={handleSubmit} style={{ background: '#E53E3E', border: 'none', borderRadius: 8, color: '#fff', padding: '10px 20px', cursor: 'pointer', fontWeight: 700, fontSize: 13 }}>
-                {editPlan ? 'GUARDAR' : 'CREAR'}
-              </button>
-              <button onClick={resetForm} style={{ background: 'transparent', border: '1px solid #333', borderRadius: 8, color: '#888', padding: '10px 16px', cursor: 'pointer', fontSize: 13 }}>
-                Cancelar
-              </button>
+            <div>
+              <label className="block text-[11px] text-gray-500 uppercase tracking-widest mb-2">Precio (ARS)</label>
+              <input type="number" value={price} onChange={e => setPrice(e.target.value)} className={inputClass} placeholder="15000" />
+            </div>
+            <div>
+              <label className="block text-[11px] text-gray-500 uppercase tracking-widest mb-2">Días</label>
+              <input type="number" value={days} onChange={e => setDays(e.target.value)} className={inputClass} placeholder="30" />
             </div>
           </div>
-        )}
+          <div className="flex gap-3">
+            <button
+              onClick={handleSubmit}
+              className="bg-primary hover:bg-red-600 text-white px-5 py-2.5 rounded-lg font-bold text-sm transition-colors"
+            >
+              {editPlan ? 'GUARDAR' : 'CREAR'}
+            </button>
+            <button
+              onClick={resetForm}
+              className="bg-transparent border border-gray-700 hover:border-gray-500 text-gray-400 px-4 py-2.5 rounded-lg text-sm transition-colors"
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      )}
 
-        {isLoading ? <div style={{ color: '#666' }}>Cargando...</div> : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 16 }}>
-            {plans.map(plan => (
-              <div key={plan.id} style={{ background: '#111', border: `1px solid ${plan.active ? '#222' : '#1a1a1a'}`, borderRadius: 12, padding: 20, opacity: plan.active ? 1 : 0.5 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
-                  <h3 style={{ fontSize: 16, fontWeight: 700, color: '#fff' }}>{plan.name}</h3>
-                  <div style={{ display: 'flex', gap: 8 }}>
-                    <button onClick={() => openEdit(plan)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#888', padding: 4 }}><Edit size={14} /></button>
-                    <button onClick={() => deleteMutation.mutate(plan.id)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#E53E3E', padding: 4 }}><Trash2 size={14} /></button>
-                  </div>
+      {isLoading ? (
+        <div className="text-gray-500 text-sm">Cargando...</div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {plans.map(plan => (
+            <div
+              key={plan.id}
+              className={`bg-surface border rounded-xl p-5 transition-opacity ${
+                plan.active ? 'border-border-dark opacity-100' : 'border-[#1a1a1a] opacity-50'
+              }`}
+            >
+              <div className="flex justify-between items-start mb-3">
+                <h3 className="text-base font-bold text-white">{plan.name}</h3>
+                <div className="flex gap-2">
+                  <button onClick={() => openEdit(plan)} className="text-gray-500 hover:text-white p-1 transition-colors">
+                    <Edit size={14} />
+                  </button>
+                  <button onClick={() => deleteMutation.mutate(plan.id)} className="text-primary hover:text-red-400 p-1 transition-colors">
+                    <Trash2 size={14} />
+                  </button>
                 </div>
-                <div style={{ fontSize: 24, fontWeight: 900, color: '#E53E3E', marginBottom: 4 }}>{formatPrice(plan.price)}</div>
-                <div style={{ fontSize: 12, color: '#666' }}>{plan.durationDays} días</div>
-                {!plan.active && <div style={{ fontSize: 11, color: '#666', marginTop: 8 }}>● Inactivo</div>}
               </div>
-            ))}
-          </div>
-        )}
-      </main>
-    </div>
+              <div className="text-2xl font-black text-primary mb-1">{formatPrice(plan.price)}</div>
+              <div className="text-xs text-gray-600">{plan.durationDays} días</div>
+              {!plan.active && <div className="text-[11px] text-gray-600 mt-2">● Inactivo</div>}
+            </div>
+          ))}
+        </div>
+      )}
+    </Layout>
   )
 }

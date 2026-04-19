@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
-import Sidebar from '../components/Sidebar'
+import Layout from '../components/Layout'
 import client from '../api/client'
 import { Check } from 'lucide-react'
 
@@ -39,95 +39,84 @@ export default function Plans() {
 
   const getPlanFeatures = (days: number) => {
     const base = ['Acceso ilimitado al box', 'Clases WOD diarias', 'Coaching profesional']
-    if (days >= 90) return [...base, 'Descuento especial', 'Evaluación física mensual']
     if (days >= 365) return [...base, 'Mayor ahorro', 'Evaluación física bimestral', 'Acceso a eventos exclusivos']
+    if (days >= 90) return [...base, 'Descuento especial', 'Evaluación física mensual']
     return base
   }
 
   const isPopular = (days: number) => days === 90
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: '#0A0A0A' }}>
-      <Sidebar />
-      <main style={{ flex: 1, padding: '32px 40px', overflowY: 'auto' }}>
-        <div style={{ marginBottom: 32 }}>
-          <h1 style={{ fontSize: 28, fontWeight: 800, color: '#fff' }}>Planes de Membresía</h1>
-          <p style={{ color: '#666', marginTop: 4 }}>Elegí el plan que mejor se adapte a tu entrenamiento</p>
+    <Layout>
+      <div className="mb-8">
+        <h1 className="text-2xl lg:text-3xl font-black text-white">Planes de Membresía</h1>
+        <p className="text-gray-500 mt-1 text-sm">Elegí el plan que mejor se adapte a tu entrenamiento</p>
+      </div>
+
+      {error && (
+        <div className="bg-primary/10 border border-primary/30 rounded-xl px-4 py-3 mb-6 text-primary text-sm">
+          {error}
         </div>
+      )}
 
-        {error && (
-          <div style={{ background: 'rgba(229,62,62,0.1)', border: '1px solid rgba(229,62,62,0.3)', borderRadius: 10, padding: '12px 16px', marginBottom: 24, color: '#E53E3E', fontSize: 14 }}>
-            {error}
-          </div>
-        )}
+      {isLoading ? (
+        <div className="text-gray-500 text-sm">Cargando planes...</div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl">
+          {plans.map(plan => {
+            const popular = isPopular(plan.durationDays)
+            const features = getPlanFeatures(plan.durationDays)
+            const pricePerDay = (plan.price / plan.durationDays).toFixed(0)
 
-        {isLoading ? (
-          <div style={{ color: '#666' }}>Cargando planes...</div>
-        ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24, maxWidth: 960 }}>
-            {plans.map(plan => {
-              const popular = isPopular(plan.durationDays)
-              const features = getPlanFeatures(plan.durationDays)
-              const pricePerDay = (plan.price / plan.durationDays).toFixed(0)
-
-              return (
-                <div key={plan.id} style={{
-                  background: '#111',
-                  border: popular ? '2px solid #E53E3E' : '1px solid #222',
-                  borderRadius: 16, padding: 28,
-                  position: 'relative',
-                  boxShadow: popular ? '0 0 30px rgba(229,62,62,0.15)' : 'none'
-                }}>
-                  {popular && (
-                    <div style={{
-                      position: 'absolute', top: -14, left: '50%', transform: 'translateX(-50%)',
-                      background: '#E53E3E', color: '#fff', fontSize: 11, fontWeight: 800,
-                      padding: '4px 14px', borderRadius: 20, letterSpacing: 1, whiteSpace: 'nowrap'
-                    }}>
-                      ⚡ MÁS POPULAR
-                    </div>
-                  )}
-
-                  <div style={{ marginBottom: 20 }}>
-                    <h3 style={{ fontSize: 20, fontWeight: 800, color: '#fff', marginBottom: 4 }}>{plan.name}</h3>
-                    <div style={{ fontSize: 38, fontWeight: 900, color: popular ? '#E53E3E' : '#fff', lineHeight: 1, marginBottom: 4 }}>
-                      {formatPrice(plan.price)}
-                    </div>
-                    <div style={{ fontSize: 12, color: '#666' }}>
-                      {plan.durationDays} días · ${pricePerDay}/día
-                    </div>
+            return (
+              <div
+                key={plan.id}
+                className={`relative bg-surface rounded-2xl p-7 flex flex-col ${
+                  popular
+                    ? 'border-2 border-primary shadow-[0_0_30px_rgba(229,62,62,0.15)]'
+                    : 'border border-border-dark'
+                }`}
+              >
+                {popular && (
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-primary text-white text-[11px] font-black px-4 py-1 rounded-full tracking-wide whitespace-nowrap">
+                    ⚡ MÁS POPULAR
                   </div>
+                )}
 
-                  <ul style={{ listStyle: 'none', marginBottom: 24 }}>
-                    {features.map((f, i) => (
-                      <li key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#bbb', fontSize: 13, marginBottom: 8 }}>
-                        <Check size={14} color="#48BB78" /> {f}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <button
-                    onClick={() => handleSelectPlan(plan)}
-                    disabled={loadingPlan === plan.id}
-                    style={{
-                      width: '100%', padding: '13px',
-                      background: popular ? '#E53E3E' : 'transparent',
-                      border: popular ? 'none' : '1px solid #E53E3E',
-                      borderRadius: 10, color: '#fff',
-                      fontSize: 14, fontWeight: 700, cursor: loadingPlan ? 'not-allowed' : 'pointer',
-                      letterSpacing: 1, textTransform: 'uppercase',
-                      transition: 'opacity 0.15s',
-                      opacity: loadingPlan === plan.id ? 0.6 : 1
-                    }}
-                  >
-                    {loadingPlan === plan.id ? 'Procesando...' : 'SELECCIONAR PLAN'}
-                  </button>
+                <div className="mb-5">
+                  <h3 className="text-xl font-black text-white mb-1">{plan.name}</h3>
+                  <div className={`text-4xl font-black leading-none mb-1 ${popular ? 'text-primary' : 'text-white'}`}>
+                    {formatPrice(plan.price)}
+                  </div>
+                  <div className="text-xs text-gray-600">
+                    {plan.durationDays} días · ${pricePerDay}/día
+                  </div>
                 </div>
-              )
-            })}
-          </div>
-        )}
-      </main>
-    </div>
+
+                <ul className="space-y-2 mb-6 flex-1">
+                  {features.map((f, i) => (
+                    <li key={i} className="flex items-center gap-2 text-gray-400 text-sm">
+                      <Check size={14} className="text-success flex-shrink-0" /> {f}
+                    </li>
+                  ))}
+                </ul>
+
+                <button
+                  onClick={() => handleSelectPlan(plan)}
+                  disabled={loadingPlan === plan.id}
+                  className={`w-full py-3 rounded-xl font-bold uppercase tracking-widest text-sm transition-all disabled:opacity-60 disabled:cursor-not-allowed ${
+                    popular
+                      ? 'bg-primary hover:bg-red-600 text-white'
+                      : 'bg-transparent border border-primary text-white hover:bg-primary/10'
+                  }`}
+                >
+                  {loadingPlan === plan.id ? 'Procesando...' : 'SELECCIONAR PLAN'}
+                </button>
+              </div>
+            )
+          })}
+        </div>
+      )}
+    </Layout>
   )
 }

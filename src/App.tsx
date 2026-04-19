@@ -11,24 +11,44 @@ import AdminDashboard from './pages/admin/AdminDashboard'
 import AdminUsers from './pages/admin/AdminUsers'
 import AdminPlans from './pages/admin/AdminPlans'
 import AdminPayments from './pages/admin/AdminPayments'
+import AdminMercadoPago from './pages/admin/AdminMercadoPago'
 
-function ProtectedRoute({ children, adminOnly = false }: { children: React.ReactNode; adminOnly?: boolean }) {
+function ProtectedRoute({
+  children,
+  adminOnly = false,
+  memberOnly = false,
+}: {
+  children: React.ReactNode
+  adminOnly?: boolean
+  memberOnly?: boolean
+}) {
   const { user, isLoading } = useAuth()
-  if (isLoading) return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', background: '#0A0A0A', color: '#E53E3E', fontSize: 24 }}>Cargando...</div>
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-background text-primary text-2xl">
+        Cargando...
+      </div>
+    )
+  }
   if (!user) return <Navigate to="/login" replace />
   if (adminOnly && user.role !== 'admin') return <Navigate to="/dashboard" replace />
+  if (memberOnly && user.role === 'admin') return <Navigate to="/admin" replace />
   return <>{children}</>
 }
 
 export default function App() {
   const { user } = useAuth()
 
+  const homeRedirect = user
+    ? (user.role === 'admin' ? '/admin' : '/dashboard')
+    : '/login'
+
   return (
     <Routes>
-      <Route path="/login" element={user ? <Navigate to="/dashboard" replace /> : <Login />} />
-      <Route path="/register" element={user ? <Navigate to="/dashboard" replace /> : <Register />} />
-      <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-      <Route path="/plans" element={<ProtectedRoute><Plans /></ProtectedRoute>} />
+      <Route path="/login" element={user ? <Navigate to={homeRedirect} replace /> : <Login />} />
+      <Route path="/register" element={user ? <Navigate to={homeRedirect} replace /> : <Register />} />
+      <Route path="/dashboard" element={<ProtectedRoute memberOnly><Dashboard /></ProtectedRoute>} />
+      <Route path="/plans" element={<ProtectedRoute memberOnly><Plans /></ProtectedRoute>} />
       <Route path="/payment/success" element={<PaymentSuccess />} />
       <Route path="/payment/failure" element={<PaymentFailure />} />
       <Route path="/payment/pending" element={<PaymentPending />} />
@@ -36,7 +56,8 @@ export default function App() {
       <Route path="/admin/users" element={<ProtectedRoute adminOnly><AdminUsers /></ProtectedRoute>} />
       <Route path="/admin/plans" element={<ProtectedRoute adminOnly><AdminPlans /></ProtectedRoute>} />
       <Route path="/admin/payments" element={<ProtectedRoute adminOnly><AdminPayments /></ProtectedRoute>} />
-      <Route path="*" element={<Navigate to={user ? '/dashboard' : '/login'} replace />} />
+      <Route path="/admin/mercadopago" element={<ProtectedRoute adminOnly><AdminMercadoPago /></ProtectedRoute>} />
+      <Route path="*" element={<Navigate to={homeRedirect} replace />} />
     </Routes>
   )
 }

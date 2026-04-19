@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
-import Sidebar from '../components/Sidebar'
+import Layout from '../components/Layout'
 import StatusBadge from '../components/StatusBadge'
 import client from '../api/client'
 import { Calendar, Dumbbell, AlertCircle } from 'lucide-react'
@@ -14,7 +14,7 @@ interface Membership {
 }
 
 export default function Dashboard() {
-  const { user, isAdmin } = useAuth()
+  const { user } = useAuth()
   const navigate = useNavigate()
 
   const { data: membership, isLoading } = useQuery<Membership>({
@@ -32,127 +32,88 @@ export default function Dashboard() {
   const isActive = membership?.status === 'active' && daysLeft !== null && daysLeft > 0
   const isExpiring = isActive && daysLeft !== null && daysLeft <= 7
 
+  const cardBg = isActive
+    ? (isExpiring ? 'bg-gradient-to-br from-yellow-950 to-surface' : 'bg-gradient-to-br from-green-950 to-surface')
+    : 'bg-gradient-to-br from-red-950 to-surface'
+
+  const cardBorder = isActive
+    ? (isExpiring ? 'border-warning/25' : 'border-success/25')
+    : 'border-primary/25'
+
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: '#0A0A0A' }}>
-      <Sidebar />
-      <main style={{ flex: 1, padding: '32px 40px', overflowY: 'auto' }}>
-        <div style={{ marginBottom: 32 }}>
-          <h1 style={{ fontSize: 28, fontWeight: 800, color: '#fff' }}>
-            ¡Hola, {user?.name?.split(' ')[0]}! 👋
-          </h1>
-          <p style={{ color: '#666', marginTop: 4 }}>Panel de tu membresía en SportLife</p>
-        </div>
+    <Layout>
+      <div className="mb-8">
+        <h1 className="text-2xl lg:text-3xl font-black text-white">
+          ¡Hola, {user?.name?.split(' ')[0]}! 👋
+        </h1>
+        <p className="text-gray-500 mt-1 text-sm">Panel de tu membresía en SportLife</p>
+      </div>
 
-        {isLoading ? (
-          <div style={{ color: '#666' }}>Cargando membresía...</div>
-        ) : (
-          <>
-            {/* Membership Status Card */}
-            <div style={{
-              background: isActive ? (isExpiring ? 'linear-gradient(135deg, #1a1500, #111)' : 'linear-gradient(135deg, #0a1a0a, #111)') : 'linear-gradient(135deg, #1a0a0a, #111)',
-              border: `1px solid ${isActive ? (isExpiring ? '#ECC94B40' : '#48BB7840') : '#E53E3E40'}`,
-              borderRadius: 16, padding: 32, marginBottom: 24
-            }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 16 }}>
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-                    <Dumbbell size={24} color={isActive ? '#48BB78' : '#E53E3E'} />
-                    <span style={{ fontSize: 14, fontWeight: 600, color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
-                      Estado de Membresía
-                    </span>
-                  </div>
-                  <div style={{ fontSize: 36, fontWeight: 800, color: '#fff', marginBottom: 8 }}>
-                    {membership?.planName || 'Sin plan'}
-                  </div>
-                  <StatusBadge status={membership?.status || 'none'} expiresAt={membership?.expiresAt} />
+      {isLoading ? (
+        <div className="text-gray-500 text-sm">Cargando membresía...</div>
+      ) : (
+        <>
+          {/* Membership card */}
+          <div className={`${cardBg} border ${cardBorder} rounded-2xl p-6 lg:p-8 mb-6`}>
+            <div className="flex flex-wrap justify-between items-start gap-4">
+              <div>
+                <div className="flex items-center gap-3 mb-2">
+                  <Dumbbell size={22} className={isActive ? 'text-success' : 'text-primary'} />
+                  <span className="text-xs font-semibold text-gray-500 uppercase tracking-widest">
+                    Estado de Membresía
+                  </span>
                 </div>
-
-                {isActive && daysLeft !== null && (
-                  <div style={{ textAlign: 'center', background: 'rgba(0,0,0,0.3)', borderRadius: 12, padding: '20px 28px' }}>
-                    <div style={{
-                      fontSize: 56, fontWeight: 900,
-                      color: isExpiring ? '#ECC94B' : '#48BB78',
-                      lineHeight: 1
-                    }}>
-                      {daysLeft}
-                    </div>
-                    <div style={{ fontSize: 12, color: '#888', marginTop: 4, textTransform: 'uppercase', letterSpacing: 1 }}>
-                      días restantes
-                    </div>
-                  </div>
-                )}
+                <div className="text-3xl lg:text-4xl font-black text-white mb-3">
+                  {membership?.planName || 'Sin plan'}
+                </div>
+                <StatusBadge status={membership?.status || 'none'} expiresAt={membership?.expiresAt} />
               </div>
 
-              {membership?.expiresAt && (
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 20, color: '#888', fontSize: 13 }}>
-                  <Calendar size={14} />
-                  Vence el {new Date(membership.expiresAt).toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' })}
+              {isActive && daysLeft !== null && (
+                <div className="text-center bg-black/30 rounded-xl px-6 py-4">
+                  <div className={`text-5xl lg:text-6xl font-black leading-none ${isExpiring ? 'text-warning' : 'text-success'}`}>
+                    {daysLeft}
+                  </div>
+                  <div className="text-xs text-gray-500 mt-1 uppercase tracking-widest">días restantes</div>
                 </div>
               )}
             </div>
 
-            {/* CTA buttons */}
-            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-              {(!isActive || isExpiring) && (
-                <button
-                  onClick={() => navigate('/plans')}
-                  style={{
-                    background: '#E53E3E', border: 'none', borderRadius: 10, color: '#fff',
-                    fontSize: 15, fontWeight: 800, padding: '14px 28px', cursor: 'pointer',
-                    letterSpacing: 1, textTransform: 'uppercase',
-                    boxShadow: '0 4px 20px rgba(229,62,62,0.4)',
-                    transition: 'transform 0.1s, box-shadow 0.1s'
-                  }}
-                >
-                  💪 PAGAR MEMBRESÍA
-                </button>
-              )}
+            {membership?.expiresAt && (
+              <div className="flex items-center gap-2 mt-6 text-gray-500 text-xs">
+                <Calendar size={13} />
+                Vence el {new Date(membership.expiresAt).toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </div>
+            )}
+          </div>
 
+          {/* CTA buttons */}
+          <div className="flex flex-wrap gap-3 mb-6">
+            {(!isActive || isExpiring) && (
               <button
                 onClick={() => navigate('/plans')}
-                style={{
-                  background: 'transparent', border: '1px solid #333', borderRadius: 10,
-                  color: '#888', fontSize: 14, fontWeight: 600, padding: '14px 24px',
-                  cursor: 'pointer', transition: 'border-color 0.15s'
-                }}
+                className="px-6 py-3 bg-primary hover:bg-red-600 text-white font-black uppercase tracking-widest rounded-xl text-sm shadow-lg shadow-primary/30 transition-all"
               >
-                Ver planes
+                💪 PAGAR MEMBRESÍA
               </button>
+            )}
+            <button
+              onClick={() => navigate('/plans')}
+              className="px-6 py-3 bg-transparent border border-gray-700 hover:border-gray-500 text-gray-400 font-semibold rounded-xl text-sm transition-colors"
+            >
+              Ver planes
+            </button>
+          </div>
+
+          {/* Expiring warning */}
+          {isExpiring && (
+            <div className="flex items-center gap-3 bg-warning/10 border border-warning/30 rounded-xl px-4 py-3 text-warning text-sm">
+              <AlertCircle size={16} />
+              Tu membresía vence en {daysLeft} día{daysLeft !== 1 ? 's' : ''}. ¡Renová ahora para no perder continuidad!
             </div>
-
-            {isExpiring && (
-              <div style={{
-                display: 'flex', alignItems: 'center', gap: 10,
-                marginTop: 20, background: 'rgba(236,201,75,0.1)',
-                border: '1px solid rgba(236,201,75,0.3)', borderRadius: 10,
-                padding: '12px 16px', color: '#ECC94B', fontSize: 13
-              }}>
-                <AlertCircle size={16} />
-                Tu membresía vence en {daysLeft} día{daysLeft !== 1 ? 's' : ''}. ¡Renová ahora para no perder continuidad!
-              </div>
-            )}
-
-            {isAdmin && (
-              <div style={{
-                marginTop: 32, background: '#111', border: '1px solid #222',
-                borderRadius: 12, padding: 24
-              }}>
-                <h3 style={{ color: '#E53E3E', fontWeight: 700, marginBottom: 12 }}>🛡️ Acceso Administrador</h3>
-                <p style={{ color: '#666', fontSize: 13, marginBottom: 16 }}>Tenés acceso al panel administrativo.</p>
-                <button
-                  onClick={() => navigate('/admin')}
-                  style={{
-                    background: '#E53E3E', border: 'none', borderRadius: 8, color: '#fff',
-                    padding: '10px 20px', cursor: 'pointer', fontWeight: 700, fontSize: 13
-                  }}
-                >
-                  IR AL PANEL ADMIN
-                </button>
-              </div>
-            )}
-          </>
-        )}
-      </main>
-    </div>
+          )}
+        </>
+      )}
+    </Layout>
   )
 }

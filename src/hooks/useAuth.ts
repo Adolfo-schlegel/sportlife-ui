@@ -11,8 +11,8 @@ interface User {
 interface AuthContextType {
   user: User | null
   token: string | null
-  login: (email: string, password: string) => Promise<void>
-  register: (name: string, email: string, password: string) => Promise<void>
+  login: (email: string, password: string) => Promise<User>
+  register: (name: string, email: string, password: string) => Promise<User>
   logout: () => void
   isAdmin: boolean
   isLoading: boolean
@@ -35,7 +35,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(false)
   }, [])
 
-  const login = async (email: string, password: string) => {
+  const login = async (email: string, password: string): Promise<User> => {
     const res = await client.post('/auth/login', { email, password })
     const { token: t, role, userId, name } = res.data
     const u: User = { id: userId, name, email, role }
@@ -43,9 +43,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(u)
     localStorage.setItem('sportlife_token', t)
     localStorage.setItem('sportlife_user', JSON.stringify(u))
+    return u
   }
 
-  const register = async (name: string, email: string, password: string) => {
+  const register = async (name: string, email: string, password: string): Promise<User> => {
     const res = await client.post('/auth/register', { name, email, password })
     const { token: t, role, userId } = res.data
     const u: User = { id: userId, name, email, role }
@@ -53,6 +54,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(u)
     localStorage.setItem('sportlife_token', t)
     localStorage.setItem('sportlife_user', JSON.stringify(u))
+    return u
   }
 
   const logout = () => {

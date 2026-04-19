@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import Sidebar from '../../components/Sidebar'
+import Layout from '../../components/Layout'
 import client from '../../api/client'
 
 interface User {
@@ -17,23 +17,22 @@ export default function AdminUsers() {
   })
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: '#0A0A0A' }}>
-      <Sidebar />
-      <main style={{ flex: 1, padding: '32px 40px', overflowY: 'auto' }}>
-        <div style={{ marginBottom: 32 }}>
-          <h1 style={{ fontSize: 28, fontWeight: 800, color: '#fff' }}>Miembros</h1>
-          <p style={{ color: '#666', marginTop: 4 }}>Todos los usuarios registrados</p>
-        </div>
+    <Layout>
+      <div className="mb-8">
+        <h1 className="text-2xl lg:text-3xl font-black text-white">Miembros</h1>
+        <p className="text-gray-500 mt-1 text-sm">Todos los usuarios registrados</p>
+      </div>
 
-        {isLoading ? (
-          <div style={{ color: '#666' }}>Cargando usuarios...</div>
-        ) : (
-          <div style={{ background: '#111', border: '1px solid #222', borderRadius: 12, overflow: 'hidden' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+      {isLoading ? (
+        <div className="text-gray-500 text-sm">Cargando usuarios...</div>
+      ) : (
+        <div className="bg-surface border border-border-dark rounded-xl overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
               <thead>
-                <tr style={{ background: '#0A0A0A', borderBottom: '1px solid #222' }}>
+                <tr className="bg-background border-b border-border-dark">
                   {['Nombre', 'Email', 'Rol', 'Registrado'].map(h => (
-                    <th key={h} style={{ padding: '12px 16px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: '#666', textTransform: 'uppercase', letterSpacing: 1 }}>
+                    <th key={h} className="px-4 py-3 text-left text-[11px] font-bold text-gray-600 uppercase tracking-widest whitespace-nowrap">
                       {h}
                     </th>
                   ))}
@@ -41,24 +40,19 @@ export default function AdminUsers() {
               </thead>
               <tbody>
                 {users.map((user, i) => (
-                  <tr key={user.id} style={{ borderBottom: i < users.length - 1 ? '1px solid #1a1a1a' : 'none' }}>
-                    <td style={{ padding: '14px 16px', color: '#fff', fontSize: 14, fontWeight: 500 }}>
-                      {user.name}
-                    </td>
-                    <td style={{ padding: '14px 16px', color: '#888', fontSize: 13 }}>
-                      {user.email}
-                    </td>
-                    <td style={{ padding: '14px 16px' }}>
-                      <span style={{
-                        display: 'inline-block', padding: '3px 10px', borderRadius: 20, fontSize: 11,
-                        fontWeight: 600, background: user.role === 'admin' ? 'rgba(229,62,62,0.15)' : 'rgba(99,179,237,0.1)',
-                        color: user.role === 'admin' ? '#E53E3E' : '#63B3ED',
-                        border: `1px solid ${user.role === 'admin' ? '#E53E3E30' : '#63B3ED30'}`
-                      }}>
+                  <tr key={user.id} className={i < users.length - 1 ? 'border-b border-[#1a1a1a]' : ''}>
+                    <td className="px-4 py-3.5 text-white text-sm font-medium whitespace-nowrap">{user.name}</td>
+                    <td className="px-4 py-3.5 text-gray-500 text-sm">{user.email}</td>
+                    <td className="px-4 py-3.5">
+                      <span className={`inline-block px-3 py-0.5 rounded-full text-xs font-semibold border ${
+                        user.role === 'admin'
+                          ? 'text-primary bg-primary/10 border-primary/20'
+                          : 'text-info bg-info/10 border-info/20'
+                      }`}>
                         {user.role}
                       </span>
                     </td>
-                    <td style={{ padding: '14px 16px', color: '#666', fontSize: 12 }}>
+                    <td className="px-4 py-3.5 text-gray-600 text-xs whitespace-nowrap">
                       {new Date(user.createdAt).toLocaleDateString('es-AR')}
                     </td>
                   </tr>
@@ -66,11 +60,11 @@ export default function AdminUsers() {
               </tbody>
             </table>
             {users.length === 0 && (
-              <div style={{ padding: 32, textAlign: 'center', color: '#666' }}>No hay usuarios registrados</div>
+              <div className="px-4 py-8 text-center text-gray-600 text-sm">No hay usuarios registrados</div>
             )}
           </div>
-        )}
-      </main>
-    </div>
+        </div>
+      )}
+    </Layout>
   )
 }

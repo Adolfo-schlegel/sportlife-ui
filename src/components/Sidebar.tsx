@@ -1,97 +1,12 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
-import { LayoutDashboard, Users, CreditCard, Dumbbell, LogOut, Shield } from 'lucide-react'
+import { LayoutDashboard, Users, CreditCard, Dumbbell, LogOut, Shield, Settings } from 'lucide-react'
 
-const styles = {
-  sidebar: {
-    width: 240,
-    minHeight: '100vh',
-    background: '#111111',
-    borderRight: '1px solid #222222',
-    display: 'flex',
-    flexDirection: 'column' as const,
-    padding: '0',
-  },
-  logo: {
-    padding: '24px 20px',
-    borderBottom: '1px solid #222',
-    display: 'flex',
-    alignItems: 'center',
-    gap: 10,
-  },
-  logoText: {
-    fontSize: 22,
-    fontWeight: 800,
-    color: '#E53E3E',
-    letterSpacing: 1,
-  },
-  logoSub: {
-    fontSize: 11,
-    color: '#666',
-    letterSpacing: 2,
-    textTransform: 'uppercase' as const,
-  },
-  nav: {
-    flex: 1,
-    padding: '16px 0',
-  },
-  navItem: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 12,
-    padding: '12px 20px',
-    color: '#888',
-    textDecoration: 'none',
-    fontSize: 14,
-    fontWeight: 500,
-    transition: 'all 0.15s',
-    borderLeft: '3px solid transparent',
-  },
-  activeNav: {
-    color: '#E53E3E',
-    background: 'rgba(229, 62, 62, 0.08)',
-    borderLeft: '3px solid #E53E3E',
-  },
-  section: {
-    padding: '8px 20px 4px',
-    fontSize: 10,
-    fontWeight: 700,
-    color: '#444',
-    textTransform: 'uppercase' as const,
-    letterSpacing: 1.5,
-  },
-  bottom: {
-    borderTop: '1px solid #222',
-    padding: '16px 20px',
-  },
-  userInfo: {
-    marginBottom: 12,
-  },
-  userName: {
-    fontSize: 13,
-    fontWeight: 600,
-    color: '#fff',
-  },
-  userRole: {
-    fontSize: 11,
-    color: '#666',
-    textTransform: 'capitalize' as const,
-  },
-  logoutBtn: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 8,
-    background: 'none',
-    border: 'none',
-    color: '#888',
-    cursor: 'pointer',
-    fontSize: 13,
-    padding: '8px 0',
-    width: '100%',
-  }
+interface SidebarProps {
+  onClose?: () => void
 }
 
-export default function Sidebar() {
+export default function Sidebar({ onClose }: SidebarProps) {
   const { user, logout, isAdmin } = useAuth()
   const navigate = useNavigate()
 
@@ -100,55 +15,68 @@ export default function Sidebar() {
     navigate('/login')
   }
 
-  const getLinkStyle = ({ isActive }: { isActive: boolean }) => ({
-    ...styles.navItem,
-    ...(isActive ? styles.activeNav : {}),
-  })
+  const linkClass = ({ isActive }: { isActive: boolean }) =>
+    `flex items-center gap-3 px-5 py-3 text-sm font-medium transition-all border-l-[3px] ${
+      isActive
+        ? 'text-primary bg-primary/10 border-primary'
+        : 'text-gray-500 border-transparent hover:text-gray-300 hover:bg-white/5'
+    }`
 
   return (
-    <aside style={styles.sidebar}>
-      <div style={styles.logo}>
-        <Dumbbell size={28} color="#E53E3E" />
+    <aside className="w-60 min-h-screen bg-surface border-r border-border-dark flex flex-col">
+      {/* Logo */}
+      <div className="flex items-center gap-3 px-5 py-6 border-b border-border-dark">
+        <Dumbbell size={28} className="text-primary" />
         <div>
-          <div style={styles.logoText}>SPORTLIFE</div>
-          <div style={styles.logoSub}>CrossFit Gym</div>
+          <div className="text-xl font-extrabold text-primary tracking-wide">SPORTLIFE</div>
+          <div className="text-[11px] text-gray-600 uppercase tracking-widest">CrossFit Gym</div>
         </div>
       </div>
 
-      <nav style={styles.nav}>
-        <div style={styles.section}>Principal</div>
-        <NavLink to="/dashboard" style={getLinkStyle}>
-          <LayoutDashboard size={18} /> Dashboard
-        </NavLink>
-        <NavLink to="/plans" style={getLinkStyle}>
-          <CreditCard size={18} /> Planes
-        </NavLink>
-
-        {isAdmin && (
+      {/* Nav */}
+      <nav className="flex-1 py-4">
+        {isAdmin ? (
           <>
-            <div style={{ ...styles.section, marginTop: 12 }}>Admin</div>
-            <NavLink to="/admin" end style={getLinkStyle}>
+            <div className="px-5 py-1 text-[10px] font-bold text-gray-600 uppercase tracking-widest">Admin</div>
+            <NavLink to="/admin" end className={linkClass} onClick={onClose}>
               <Shield size={18} /> Panel Admin
             </NavLink>
-            <NavLink to="/admin/users" style={getLinkStyle}>
+            <NavLink to="/admin/users" className={linkClass} onClick={onClose}>
               <Users size={18} /> Miembros
             </NavLink>
-            <NavLink to="/admin/plans" style={getLinkStyle}>
+            <NavLink to="/admin/plans" className={linkClass} onClick={onClose}>
               <Dumbbell size={18} /> Gestión Planes
             </NavLink>
-            <NavLink to="/admin/payments" style={getLinkStyle}>
+            <NavLink to="/admin/payments" className={linkClass} onClick={onClose}>
               <CreditCard size={18} /> Pagos
+            </NavLink>
+            <NavLink to="/admin/mercadopago" className={linkClass} onClick={onClose}>
+              <Settings size={18} /> MercadoPago
+            </NavLink>
+          </>
+        ) : (
+          <>
+            <div className="px-5 py-1 text-[10px] font-bold text-gray-600 uppercase tracking-widest">Principal</div>
+            <NavLink to="/dashboard" className={linkClass} onClick={onClose}>
+              <LayoutDashboard size={18} /> Dashboard
+            </NavLink>
+            <NavLink to="/plans" className={linkClass} onClick={onClose}>
+              <CreditCard size={18} /> Planes
             </NavLink>
           </>
         )}
       </nav>
 
-      <div style={styles.bottom}>
-        <div style={styles.userInfo}>
-          <div style={styles.userName}>{user?.name}</div>
-          <div style={styles.userRole}>{user?.role}</div>
+      {/* User info + logout */}
+      <div className="border-t border-border-dark px-5 py-4">
+        <div className="mb-3">
+          <div className="text-sm font-semibold text-white">{user?.name}</div>
+          <div className="text-[11px] text-gray-600 capitalize">{user?.role}</div>
         </div>
-        <button style={styles.logoutBtn} onClick={handleLogout}>
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-2 text-gray-500 hover:text-white text-sm py-2 w-full transition-colors"
+        >
           <LogOut size={16} /> Cerrar sesión
         </button>
       </div>

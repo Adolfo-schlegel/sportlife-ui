@@ -1,19 +1,33 @@
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { XCircle } from 'lucide-react'
+import { useAuth } from '../hooks/useAuth'
 
 export default function PaymentFailure() {
   const navigate = useNavigate()
+  const { user } = useAuth()
+
+  useEffect(() => {
+    if (user?.role === 'admin') navigate('/admin', { replace: true })
+  }, [user, navigate])
+
   return (
-    <div style={{ minHeight: '100vh', background: '#0A0A0A', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ textAlign: 'center', padding: 40 }}>
-        <XCircle size={80} color="#E53E3E" style={{ marginBottom: 24 }} />
-        <h1 style={{ fontSize: 32, fontWeight: 900, color: '#fff', marginBottom: 12 }}>PAGO RECHAZADO</h1>
-        <p style={{ color: '#888', fontSize: 16, marginBottom: 32 }}>Hubo un problema con tu pago. Podés intentar de nuevo.</p>
-        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-          <button onClick={() => navigate('/plans')} style={{ background: '#E53E3E', border: 'none', borderRadius: 10, color: '#fff', padding: '14px 32px', fontSize: 15, fontWeight: 700, cursor: 'pointer' }}>
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <div className="text-center max-w-md">
+        <XCircle size={80} className="text-primary mx-auto mb-6" />
+        <h1 className="text-4xl font-black text-white mb-3 uppercase tracking-widest">PAGO RECHAZADO</h1>
+        <p className="text-gray-500 text-base mb-8">Hubo un problema con tu pago. Podés intentar de nuevo.</p>
+        <div className="flex gap-3 justify-center flex-wrap">
+          <button
+            onClick={() => navigate('/plans')}
+            className="px-8 py-3 bg-primary hover:bg-red-600 text-white font-bold uppercase tracking-widest rounded-lg text-sm transition-colors"
+          >
             INTENTAR DE NUEVO
           </button>
-          <button onClick={() => navigate('/dashboard')} style={{ background: 'transparent', border: '1px solid #333', borderRadius: 10, color: '#888', padding: '14px 24px', fontSize: 14, cursor: 'pointer' }}>
+          <button
+            onClick={() => navigate('/dashboard')}
+            className="px-6 py-3 bg-transparent border border-gray-700 hover:border-gray-500 text-gray-400 rounded-lg text-sm transition-colors"
+          >
             Ir al inicio
           </button>
         </div>

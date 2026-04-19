@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import Sidebar from '../../components/Sidebar'
+import Layout from '../../components/Layout'
 import StatusBadge from '../../components/StatusBadge'
 import client from '../../api/client'
 
@@ -26,23 +26,22 @@ export default function AdminPayments() {
     new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', minimumFractionDigits: 0 }).format(n)
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: '#0A0A0A' }}>
-      <Sidebar />
-      <main style={{ flex: 1, padding: '32px 40px', overflowY: 'auto' }}>
-        <div style={{ marginBottom: 32 }}>
-          <h1 style={{ fontSize: 28, fontWeight: 800, color: '#fff' }}>Pagos</h1>
-          <p style={{ color: '#666', marginTop: 4 }}>Historial completo de pagos</p>
-        </div>
+    <Layout>
+      <div className="mb-8">
+        <h1 className="text-2xl lg:text-3xl font-black text-white">Pagos</h1>
+        <p className="text-gray-500 mt-1 text-sm">Historial completo de pagos</p>
+      </div>
 
-        {isLoading ? (
-          <div style={{ color: '#666' }}>Cargando pagos...</div>
-        ) : (
-          <div style={{ background: '#111', border: '1px solid #222', borderRadius: 12, overflow: 'hidden' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+      {isLoading ? (
+        <div className="text-gray-500 text-sm">Cargando pagos...</div>
+      ) : (
+        <div className="bg-surface border border-border-dark rounded-xl overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
               <thead>
-                <tr style={{ background: '#0A0A0A', borderBottom: '1px solid #222' }}>
+                <tr className="bg-background border-b border-border-dark">
                   {['Miembro', 'Plan', 'Monto', 'Estado', 'Fecha', 'MP ID'].map(h => (
-                    <th key={h} style={{ padding: '12px 16px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: '#666', textTransform: 'uppercase', letterSpacing: 1 }}>
+                    <th key={h} className="px-4 py-3 text-left text-[11px] font-bold text-gray-600 uppercase tracking-widest whitespace-nowrap">
                       {h}
                     </th>
                   ))}
@@ -50,15 +49,15 @@ export default function AdminPayments() {
               </thead>
               <tbody>
                 {payments.map((p, i) => (
-                  <tr key={p.id} style={{ borderBottom: i < payments.length - 1 ? '1px solid #1a1a1a' : 'none' }}>
-                    <td style={{ padding: '14px 16px', color: '#fff', fontSize: 14 }}>{p.userName}</td>
-                    <td style={{ padding: '14px 16px', color: '#888', fontSize: 13 }}>{p.planName}</td>
-                    <td style={{ padding: '14px 16px', color: '#E53E3E', fontSize: 14, fontWeight: 700 }}>{formatMoney(p.amount)}</td>
-                    <td style={{ padding: '14px 16px' }}><StatusBadge status={p.status} /></td>
-                    <td style={{ padding: '14px 16px', color: '#666', fontSize: 12 }}>
+                  <tr key={p.id} className={i < payments.length - 1 ? 'border-b border-[#1a1a1a]' : ''}>
+                    <td className="px-4 py-3.5 text-white text-sm whitespace-nowrap">{p.userName}</td>
+                    <td className="px-4 py-3.5 text-gray-500 text-sm whitespace-nowrap">{p.planName}</td>
+                    <td className="px-4 py-3.5 text-primary text-sm font-bold whitespace-nowrap">{formatMoney(p.amount)}</td>
+                    <td className="px-4 py-3.5"><StatusBadge status={p.status} /></td>
+                    <td className="px-4 py-3.5 text-gray-600 text-xs whitespace-nowrap">
                       {new Date(p.createdAt).toLocaleDateString('es-AR')}
                     </td>
-                    <td style={{ padding: '14px 16px', color: '#444', fontSize: 11, fontFamily: 'monospace' }}>
+                    <td className="px-4 py-3.5 text-gray-600 text-xs font-mono whitespace-nowrap">
                       {p.mercadoPagoPaymentId ? p.mercadoPagoPaymentId.slice(0, 12) + '...' : '-'}
                     </td>
                   </tr>
@@ -66,11 +65,11 @@ export default function AdminPayments() {
               </tbody>
             </table>
             {payments.length === 0 && (
-              <div style={{ padding: 32, textAlign: 'center', color: '#666' }}>No hay pagos registrados</div>
+              <div className="px-4 py-8 text-center text-gray-600 text-sm">No hay pagos registrados</div>
             )}
           </div>
-        )}
-      </main>
-    </div>
+        </div>
+      )}
+    </Layout>
   )
 }
