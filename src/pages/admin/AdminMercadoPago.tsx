@@ -117,7 +117,7 @@ export default function AdminMercadoPago() {
                   type={showToken ? 'text' : 'password'}
                   value={config.accessToken}
                   onChange={e => setConfig(c => ({ ...c, accessToken: e.target.value }))}
-                  placeholder={config.isTestMode ? 'TEST-xxxx...' : 'APP_USR-xxxx...'}
+                  placeholder="APP_USR-xxxx..."
                   className={`${styles.input} ${styles.inputWithBtn}`}
                 />
                 <button onClick={() => setShowToken(v => !v)} className={styles.eyeBtn}>
@@ -125,7 +125,7 @@ export default function AdminMercadoPago() {
                 </button>
               </div>
               <p className={styles.fieldHint}>
-                {config.isTestMode ? 'Usá el Access Token de SANDBOX (empieza con TEST-)' : 'Usá el Access Token de PRODUCCIÓN (empieza con APP_USR-)'}
+                {config.isTestMode ? 'Usá el Access Token de SANDBOX (APP_USR- o TEST-)' : 'Usá el Access Token de PRODUCCIÓN (empieza con APP_USR-)'}
               </p>
             </div>
 
@@ -135,7 +135,7 @@ export default function AdminMercadoPago() {
                 type="text"
                 value={config.publicKey}
                 onChange={e => setConfig(c => ({ ...c, publicKey: e.target.value }))}
-                placeholder={config.isTestMode ? 'TEST-xxxx...' : 'APP_USR-xxxx...'}
+                placeholder="APP_USR-xxxx..."
                 className={styles.input}
               />
             </div>
@@ -215,7 +215,7 @@ export default function AdminMercadoPago() {
             <ol className={styles.guideOl}>
               <li>Entrá a <span>developers.mercadopago.com</span></li>
               <li>Creá una aplicación</li>
-              <li>Copiá el Access Token de PRODUCCIÓN (empieza con APP_USR-)</li>
+              <li>Copiá el Access Token de PRODUCCIÓN (APP_USR-)</li>
               <li>Pegalo arriba, activá modo Producción y guardá</li>
               <li>Asegurate que la Notification URL sea accesible desde internet</li>
             </ol>
