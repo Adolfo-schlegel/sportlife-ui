@@ -2,7 +2,6 @@ import { useState, FormEvent } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import styles from '../styles/auth.module.css'
-import gymImg from '../assets/gym.jpg'
 import logoImg from '../assets/logo.png'
 
 export default function Register() {
@@ -33,12 +32,9 @@ export default function Register() {
   return (
     <div className={styles.page}>
       <div className={styles.imageSide}>
-        <img src={gymImg} alt="Sportlife Gym" className={styles.gymImage} />
-        <div className={styles.imageOverlay}>
-          <img src={logoImg} alt="Sportlife Logo" className={styles.overlayLogo} />
-          <div className={styles.overlayTitle}>SPORTLIFE</div>
-          <div className={styles.overlaySubtitle}>CrossFit Gym Management</div>
-        </div>
+        <img src={logoImg} alt="Sportlife Logo" className={styles.overlayLogo} />
+        <div className={styles.overlayTitle}>SPORTLIFE</div>
+        <div className={styles.overlaySubtitle}>CrossFit Gym Management</div>
       </div>
 
       <div className={styles.formSide}>
