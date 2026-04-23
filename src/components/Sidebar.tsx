@@ -24,10 +24,6 @@ export default function Sidebar({ onClose }: SidebarProps) {
     <aside className={styles.sidebar}>
       <div className={styles.logoArea}>
         <img src={logoImg} alt="Sportlife" className={styles.logoImg} />
-        <div>
-          <div className={styles.logoText}>SPORTLIFE</div>
-          <div className={styles.logoSub}>CrossFit Gym</div>
-        </div>
       </div>
 
       <nav className={styles.nav}>
