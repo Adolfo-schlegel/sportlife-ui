@@ -3,27 +3,28 @@
 .title {
   font-size: 1.75rem;
   font-weight: 900;
-  color: var(--text-primary);
+  color: #111111;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   line-height: 1.1;
 }
 
-.subtitle { color: var(--text-secondary); font-size: 13px; margin-top: 4px; }
+.subtitle { color: var(--text-secondary); font-size: 12px; margin-top: 4px; letter-spacing: 0.06em; }
 .loading  { color: var(--text-secondary); font-size: 13px; }
 
 .memberCard {
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--border);
-  border-radius: var(--radius-md);
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-left: 4px solid rgba(0,0,0,0.1);
+  border-top: 3px solid rgba(0,0,0,0.08);
   padding: 1.75rem;
   margin-bottom: 1.5rem;
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
 }
 
-.memberCardActive   { border-left-color: var(--green); }
-.memberCardExpiring { border-left-color: var(--yellow); }
-.memberCardExpired  { border-left-color: var(--red); }
+.memberCardActive   { border-left-color: var(--green-bright); border-top-color: var(--green-bright); }
+.memberCardExpiring { border-left-color: var(--yellow); border-top-color: var(--yellow); }
+.memberCardExpired  { border-left-color: var(--red); border-top-color: var(--red); }
 
 .cardTop {
   display: flex;
@@ -42,17 +43,17 @@
 }
 
 .planMetaLabel {
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 9px;
+  font-weight: 900;
   color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
 }
 
 .planName {
   font-size: 2rem;
   font-weight: 900;
-  color: var(--text-primary);
+  color: #111111;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin-bottom: 0.75rem;
@@ -61,10 +62,11 @@
 
 .daysBox {
   text-align: center;
-  background: rgba(0,0,0,0.3);
+  background: #F5F5F5;
   padding: 1rem 1.5rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-left: 3px solid var(--red);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
 }
 
 .daysNumber {
@@ -77,11 +79,12 @@
 .daysNumberExpiring { color: var(--yellow); }
 
 .daysLabel {
-  font-size: 10px;
+  font-size: 9px;
   color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
   margin-top: 4px;
+  font-weight: 700;
 }
 
 .expiryRow {
@@ -107,14 +110,14 @@
   padding: 0.75rem 1.5rem;
   background: var(--red);
   color: white;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   border: none;
   cursor: pointer;
-  transition: background 0.15s;
-  border-radius: var(--radius-sm);
+  transition: background 0.12s;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
 }
 
 .btnPrimary:hover { background: var(--red-dark); }
@@ -122,24 +125,28 @@
 .btnOutline {
   padding: 0.75rem 1.25rem;
   background: transparent;
-  color: var(--text-secondary);
-  font-size: 13px;
-  border: 1px solid var(--border);
+  color: #555555;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-left: 3px solid rgba(0,0,0,0.15);
   cursor: pointer;
-  transition: border-color 0.15s, color 0.15s;
-  border-radius: var(--radius-sm);
+  transition: border-color 0.12s, color 0.12s;
 }
 
-.btnOutline:hover { border-color: var(--border-hot); color: var(--text-primary); }
+.btnOutline:hover { border-left-color: var(--red); color: var(--red); }
 
 .alert {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: rgba(212, 160, 23, 0.08);
+  background: rgba(180,83,9,0.06);
   border: 1px solid var(--yellow);
+  border-left: 3px solid var(--yellow);
   padding: 0.75rem 1rem;
   color: var(--yellow);
-  font-size: 13px;
-  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
 }

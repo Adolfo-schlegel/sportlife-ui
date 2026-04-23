@@ -5,23 +5,37 @@
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 2px solid var(--red);
+  position: relative;
+}
+
+.pageHeader::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: var(--color-black);
 }
 
 .title {
   font-size: 1.75rem;
   font-weight: 900;
-  color: var(--text-primary);
+  color: #111111;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
 }
 
-.subtitle { color: var(--text-secondary); font-size: 13px; margin-top: 4px; }
+.subtitle { color: var(--text-secondary); font-size: 12px; margin-top: 4px; letter-spacing: 0.06em; }
 .loading  { color: var(--text-secondary); font-size: 13px; }
 
 .tableWrap {
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-top: 3px solid var(--red);
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
   overflow: hidden;
 }
 
@@ -29,51 +43,50 @@
 
 .table { width: 100%; border-collapse: collapse; }
 
-.thead { background: var(--bg-elevated); }
+.thead { background: #F0F0F0; }
 
 .th {
   padding: 0.75rem 1rem;
   text-align: left;
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--text-secondary);
+  font-size: 9px;
+  font-weight: 900;
+  color: #111111;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
   white-space: nowrap;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 2px solid rgba(0,0,0,0.08);
 }
 
-.tr { border-bottom: 1px solid var(--border); }
+.tr { border-bottom: 1px solid rgba(0,0,0,0.06); }
 .tr:last-child { border-bottom: none; }
-.tr:hover { background: var(--bg-elevated); }
+.tr:hover { background: rgba(204,0,0,0.03); }
 .trClickable { cursor: pointer; }
 
 .tdPrimary {
   padding: 0.875rem 1rem;
-  color: var(--text-primary);
+  color: #111111;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   white-space: nowrap;
 }
 
 .tdSecondary {
   padding: 0.875rem 1rem;
-  color: var(--text-secondary);
+  color: #555555;
   font-size: 13px;
   white-space: nowrap;
 }
 
 .tdMuted {
   padding: 0.875rem 1rem;
-  color: var(--text-secondary);
+  color: #999999;
   font-size: 11px;
   white-space: nowrap;
-  opacity: 0.7;
 }
 
 .tdMono {
   padding: 0.875rem 1rem;
-  color: var(--text-secondary);
+  color: #777777;
   font-size: 11px;
   font-family: monospace;
   white-space: nowrap;
@@ -83,7 +96,7 @@
   padding: 0.875rem 1rem;
   color: var(--red);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 900;
   white-space: nowrap;
 }
 
@@ -99,16 +112,16 @@
 .roleBadge {
   display: inline-block;
   padding: 3px 10px;
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 9px;
+  font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   border: 1px solid;
-  border-radius: 20px;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
 }
 
-.roleAdmin  { color: var(--red);  border-color: var(--red);  background: rgba(225,6,0,0.08); }
-.roleMember { color: #63B3ED;     border-color: #63B3ED;     background: rgba(99,179,237,0.08); }
+.roleAdmin  { color: var(--red);   border-color: var(--red);   background: rgba(204,0,0,0.06); }
+.roleMember { color: #2563EB;      border-color: #2563EB;      background: rgba(37,99,235,0.06); }
 
 .btnPrimary {
   display: flex;
@@ -117,14 +130,14 @@
   padding: 0.625rem 1.25rem;
   background: var(--red);
   color: white;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   border: none;
   cursor: pointer;
-  transition: background 0.15s;
-  border-radius: var(--radius-sm);
+  transition: background 0.12s;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
 }
 
 .btnPrimary:hover { background: var(--red-dark); }
@@ -137,17 +150,18 @@
 }
 
 .searchInput, .filterSelect {
-  padding: 0.6rem 0.875rem;
-  background: var(--bg-base);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
+  padding: 0.55rem 0.875rem;
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-left: 3px solid var(--red);
+  color: #111111;
   font-size: 13px;
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.12s;
   font-family: inherit;
+  border-radius: 0;
 }
 .searchInput { flex: 1; min-width: 200px; }
 .filterSelect { min-width: 160px; }
-.searchInput:focus, .filterSelect:focus { border-color: var(--red); }
-.filterSelect option { background: var(--color-bg-dark); }
+.searchInput:focus, .filterSelect:focus { border-color: var(--red); box-shadow: 0 0 0 2px rgba(204,0,0,0.08); }
+.filterSelect option { background: #FFFFFF; color: #111111; }

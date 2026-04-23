@@ -1,12 +1,12 @@
 .badge {
   display: inline-block;
   padding: 3px 10px;
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 9px;
+  font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  border-radius: 20px;
+  letter-spacing: 0.14em;
   border: 1px solid;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
 }
 
 .active {
@@ -28,9 +28,9 @@
 }
 
 .pending {
-  background: rgba(225, 6, 0, 0.08);
-  color: var(--color-gray-light);
-  border-color: var(--color-gray-dark);
+  background: rgba(0,0,0,0.04);
+  color: #666666;
+  border-color: rgba(0,0,0,0.2);
 }
 
 .approved {

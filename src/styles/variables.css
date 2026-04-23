@@ -1,33 +1,31 @@
 :root {
-  --color-white-main: #F5F5F5;
-  --color-gray-light: #D9D9D9;
-  --color-gray-mid: #A6A6A6;
-  --color-gray-dark: #5C5C5C;
-  --color-black: #1A1A1A;
-  --color-red-primary: #E10600;
-  --color-red-dark: #8B0000;
-  --color-purple-accent: #2E1A47;
-  --color-bg-dark: #2B2B2B;
+  --color-white-main: #111111;
+  --color-gray-light: #DDDDDD;
+  --color-gray-mid:   #888888;
+  --color-gray-dark:  #444444;
+  --color-black:      #0D0D0D;
+  --color-red-primary: #CC0000;
+  --color-red-dark:   #8B0000;
+  --color-purple-accent: #0D0D0D;
+  --color-bg-dark:    #FFFFFF;
 
-  /* Legacy aliases — used throughout all modules */
-  --bg-base:        var(--color-black);
-  --bg-surface:     var(--color-bg-dark);
-  --bg-elevated:    #363636;
-  --border:         rgba(92, 92, 92, 0.45);
-  --border-hot:     var(--color-red-primary);
-  --text-primary:   var(--color-white-main);
-  --text-secondary: var(--color-gray-mid);
-  --red:            var(--color-red-primary);
-  --red-dark:       var(--color-red-dark);
-  --orange:         var(--color-red-primary);
-  --orange-dark:    var(--color-red-dark);
-  --green:          #276749;
-  --green-bright:   #48BB78;
-  --yellow:         #D4A017;
+  --bg-base:        #FFFFFF;
+  --bg-surface:     #F5F5F5;
+  --bg-elevated:    #EBEBEB;
+  --border:         rgba(0,0,0,0.12);
+  --border-hot:     #CC0000;
+  --text-primary:   #111111;
+  --text-secondary: #777777;
+  --red:            #CC0000;
+  --red-dark:       #8B0000;
+  --orange:         #CC0000;
+  --orange-dark:    #8B0000;
+  --green:          #166534;
+  --green-bright:   #16A34A;
+  --yellow:         #B45309;
 
-  /* Border radius scale */
-  --radius-xs: 4px;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 18px;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
 }

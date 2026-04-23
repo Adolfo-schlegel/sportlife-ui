@@ -5,17 +5,19 @@
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 2px solid var(--red);
 }
 
 .title {
   font-size: 1.75rem;
   font-weight: 900;
-  color: var(--text-primary);
+  color: #111111;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
 }
 
-.subtitle { color: var(--text-secondary); font-size: 13px; margin-top: 4px; }
+.subtitle { color: var(--text-secondary); font-size: 12px; margin-top: 4px; }
 .loading  { color: var(--text-secondary); font-size: 13px; }
 
 .btnNew {
@@ -25,34 +27,45 @@
   padding: 0.625rem 1.25rem;
   background: var(--red);
   color: white;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   border: none;
   cursor: pointer;
-  transition: background 0.15s;
-  border-radius: var(--radius-sm);
+  transition: background 0.12s;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
 }
 
 .btnNew:hover { background: var(--red-dark); }
 
 .form {
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.1);
   border-left: 4px solid var(--red);
-  border-radius: var(--radius-md);
+  border-top: 3px solid var(--red);
   padding: 1.5rem;
   margin-bottom: 1.5rem;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
 }
 
 .formTitle {
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 900;
-  color: var(--text-primary);
+  color: #111111;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.2em;
   margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.formTitle::before {
+  content: '';
+  display: block;
+  width: 16px;
+  height: 2px;
+  background: var(--red);
 }
 
 .formGrid {
@@ -67,57 +80,60 @@
 .field { display: flex; flex-direction: column; gap: 0.5rem; }
 
 .label {
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 9px;
+  font-weight: 900;
   color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
 }
 
 .input {
   width: 100%;
-  padding: 0.625rem 0.875rem;
-  background: var(--bg-base);
-  border: 1px solid var(--border);
-  color: var(--text-primary);
+  padding: 0.6rem 0.875rem;
+  background: #F5F5F5;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-left: 3px solid rgba(0,0,0,0.12);
+  color: #111111;
   font-size: 14px;
   outline: none;
-  transition: border-color 0.15s;
-  border-radius: var(--radius-sm);
+  transition: border-color 0.12s;
+  border-radius: 0;
 }
 
-.input:focus { border-color: var(--red); }
+.input:focus { border-left-color: var(--red); box-shadow: 0 0 0 2px rgba(204,0,0,0.06); }
 
 .formActions { display: flex; gap: 0.75rem; }
 
 .btnSave {
-  padding: 0.625rem 1.25rem;
+  padding: 0.6rem 1.25rem;
   background: var(--red);
   color: white;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   border: none;
   cursor: pointer;
-  transition: background 0.15s;
-  border-radius: var(--radius-sm);
+  transition: background 0.12s;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
 }
 
 .btnSave:hover { background: var(--red-dark); }
 
 .btnCancel {
-  padding: 0.625rem 1rem;
+  padding: 0.6rem 1rem;
   background: transparent;
-  color: var(--text-secondary);
-  font-size: 13px;
-  border: 1px solid var(--border);
+  color: #777777;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 1px solid rgba(0,0,0,0.15);
   cursor: pointer;
-  transition: border-color 0.15s, color 0.15s;
-  border-radius: var(--radius-sm);
+  transition: border-color 0.12s, color 0.12s;
 }
 
-.btnCancel:hover { border-color: var(--border-hot); color: var(--text-primary); }
+.btnCancel:hover { border-color: var(--red); color: var(--red); }
 
 .grid {
   display: grid;
@@ -129,14 +145,16 @@
 @media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
 
 .card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.1);
   border-top: 3px solid var(--red);
-  border-radius: var(--radius-md);
   padding: 1.25rem;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  transition: box-shadow 0.15s;
 }
+.card:hover { box-shadow: 4px 4px 0 rgba(204,0,0,0.15); }
 
-.cardInactive { opacity: 0.5; border-top-color: var(--border); }
+.cardInactive { opacity: 0.5; border-top-color: rgba(0,0,0,0.1); }
 
 .cardHeader {
   display: flex;
@@ -146,11 +164,11 @@
 }
 
 .planName {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 900;
-  color: var(--text-primary);
+  color: #111111;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
 }
 
 .cardActions { display: flex; gap: 4px; }
@@ -160,12 +178,12 @@
   border: none;
   cursor: pointer;
   padding: 4px;
-  color: var(--text-secondary);
-  transition: color 0.15s;
+  color: #888888;
+  transition: color 0.12s;
   display: flex;
 }
 
-.iconBtn:hover { color: var(--text-primary); }
+.iconBtn:hover { color: #111111; }
 .iconBtnDanger:hover { color: var(--red); }
 
 .planPrice {
@@ -175,5 +193,5 @@
   margin-bottom: 2px;
 }
 
-.planDays    { font-size: 11px; color: var(--text-secondary); }
-.planInactive { font-size: 10px; color: var(--text-secondary); margin-top: 6px; }
+.planDays    { font-size: 11px; color: #888888; }
+.planInactive { font-size: 10px; color: #888888; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.1em; }

@@ -18,18 +18,23 @@
 
 .page {
   min-height: 100vh;
-  background: var(--bg-base);
+  background: #FFFFFF;
   display: flex;
   flex-direction: column;
+  background-image: repeating-linear-gradient(
+    45deg, transparent, transparent 40px,
+    rgba(204,0,0,0.018) 40px, rgba(204,0,0,0.018) 41px
+  );
 }
 
 .topBar {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem 1.5rem;
-  background: var(--color-purple-accent);
-  border-bottom: 1px solid var(--border);
+  padding: 0 1.5rem;
+  height: 52px;
+  background: var(--color-black);
+  border-bottom: 3px solid var(--red);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -39,19 +44,21 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: var(--radius-sm);
-  color: rgba(255,255,255,0.85);
-  font-size: 13px;
-  font-weight: 600;
-  padding: 0.4rem 0.85rem;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.8);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.35rem 0.75rem;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 0.12s;
   flex-shrink: 0;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
 }
 
-.backBtn:hover { background: rgba(255,255,255,0.18); }
+.backBtn:hover { background: rgba(255,255,255,0.15); }
 
 .planInfo {
   display: flex;
@@ -61,20 +68,19 @@
 }
 
 .planName {
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 900;
   color: #fff;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
 }
 
 .planAmount {
   font-size: 13px;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.5);
   font-weight: 500;
 }
 
-/* Brick area */
 .brickWrap {
   flex: 1;
   display: flex;
@@ -95,21 +101,18 @@
   gap: 6px;
   margin-bottom: 1.25rem;
   padding: 0.5rem 0.875rem;
-  background: rgba(0, 158, 227, 0.08);
-  border: 1px solid rgba(0, 158, 227, 0.25);
-  border-radius: var(--radius-sm);
+  background: #F0F0F0;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-left: 3px solid #009EE3;
   width: 100%;
   max-width: 560px;
 }
 
-.lockIcon {
-  color: #009EE3;
-  flex-shrink: 0;
-}
+.lockIcon { color: #009EE3; flex-shrink: 0; }
 
 .mpBadge span {
   font-size: 12px;
-  color: var(--color-gray-mid);
+  color: #666666;
   white-space: nowrap;
 }
 
@@ -117,28 +120,27 @@
   height: 18px;
   width: auto;
   object-fit: contain;
-  filter: brightness(0) invert(1) opacity(0.85);
 }
 
 .loading {
-  color: var(--color-gray-mid);
+  color: #888888;
   text-align: center;
   padding: 3rem 0;
 }
 
 .error {
-  color: #fc8181;
-  background: rgba(252, 129, 129, 0.1);
-  border: 1px solid rgba(252, 129, 129, 0.3);
-  border-radius: var(--radius-sm);
+  color: var(--red);
+  background: rgba(204,0,0,0.05);
+  border: 1px solid rgba(204,0,0,0.2);
+  border-left: 3px solid var(--red);
   padding: 0.75rem 1rem;
   margin-bottom: 1rem;
   font-size: 0.875rem;
+  font-weight: 600;
   width: 100%;
   max-width: 560px;
 }
 
-/* Full-screen overlays */
 .fullOverlay {
   flex: 1;
   display: flex;
@@ -152,21 +154,23 @@
 .spinner {
   width: 56px;
   height: 56px;
-  border: 3px solid rgba(225, 6, 0, 0.2);
-  border-top-color: var(--color-red-primary);
+  border: 3px solid rgba(204,0,0,0.15);
+  border-top-color: var(--red);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
 
 .processingText {
   font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--color-white-main);
+  font-weight: 900;
+  color: #111111;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .processingNote {
   font-size: 0.8rem;
-  color: var(--color-gray-mid);
+  color: #888888;
 }
 
 .checkCircle {
@@ -198,10 +202,12 @@
 .successText {
   font-size: 1.75rem;
   font-weight: 900;
-  color: var(--color-white-main);
+  color: #111111;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 
 .successNote {
   font-size: 0.8rem;
-  color: var(--color-gray-mid);
+  color: #888888;
 }

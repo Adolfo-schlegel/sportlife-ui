@@ -2,32 +2,33 @@
 
 .input {
   width: 100%;
-  padding: 0.7rem 0.875rem;
-  background: var(--bg-base);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
-  font-size: 14px;
+  padding: 0.65rem 0.875rem;
+  background: #F5F5F5;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-left: 3px solid rgba(0,0,0,0.12);
+  color: #111111;
+  font-size: 13px;
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.12s;
   font-family: inherit;
   box-sizing: border-box;
+  border-radius: 0;
 }
-.input:focus { border-color: var(--red); }
+.input:focus { border-left-color: var(--red); box-shadow: 0 0 0 2px rgba(204,0,0,0.06); }
 
 .dropdown {
   position: absolute;
-  top: calc(100% + 4px);
+  top: calc(100% + 2px);
   left: 0;
   right: 0;
-  background: var(--color-bg-dark);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-top: 2px solid var(--red);
   z-index: 200;
   list-style: none;
   margin: 0;
   padding: 0.25rem 0;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  box-shadow: 4px 4px 0 rgba(204,0,0,0.12);
   max-height: 240px;
   overflow-y: auto;
 }
@@ -38,17 +39,19 @@
   padding: 0.5rem 0.875rem;
   cursor: pointer;
   transition: background 0.1s;
+  border-left: 2px solid transparent;
 }
-.option:hover, .optionActive { background: var(--bg-elevated); }
+.option:hover { background: rgba(204,0,0,0.04); border-left-color: var(--red); }
+.optionActive { background: rgba(204,0,0,0.06); border-left-color: var(--red); }
 
 .optionName {
   font-size: 13px;
-  font-weight: 600;
-  color: var(--text-primary);
+  font-weight: 700;
+  color: #111111;
 }
 
 .optionEmail {
   font-size: 11px;
-  color: var(--text-secondary);
+  color: #888888;
   margin-top: 1px;
 }
