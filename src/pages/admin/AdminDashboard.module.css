@@ -1,14 +1,17 @@
-.header { margin-bottom: 2rem; }
-
-.title {
-  font-size: 1.75rem;
-  font-weight: 900;
-  color: var(--text-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+.header {
+  margin-bottom: 2rem;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  line-height: 0;
 }
 
-.subtitle { color: var(--text-secondary); font-size: 13px; margin-top: 4px; }
+.headerLogo {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
 .loading  { color: var(--text-secondary); font-size: 13px; }
 
 .statsGrid {

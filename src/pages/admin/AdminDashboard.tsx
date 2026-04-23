@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import ExpiringCard from '../../components/ExpiringCard'
 import client from '../../api/client'
+import logo from '../../assets/logo.png'
 import { Users, CheckCircle, XCircle, DollarSign, CreditCard } from 'lucide-react'
 import styles from './AdminDashboard.module.css'
 
@@ -34,8 +35,7 @@ export default function AdminDashboard() {
   return (
     <Layout>
       <div className={styles.header}>
-        <h1 className={styles.title}>Panel Administrador</h1>
-        <p className={styles.subtitle}>Resumen general de SportLife CrossFit</p>
+        <img src={logo} alt="SportLife" className={styles.headerLogo} />
       </div>
 
       {isLoading ? (
