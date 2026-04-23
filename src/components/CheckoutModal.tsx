@@ -82,9 +82,9 @@ export default function CheckoutModal({ planId, planName, amount, onClose, onSuc
         {loading && <p className={styles.loading}>Cargando formulario de pago...</p>}
         {error && <p className={styles.error}>{error}</p>}
 
-        {!loading && !error && preferenceId && (
+        {!loading && !error && preferenceId !== null && (
           <Payment
-            initialization={{ amount, preferenceId }}
+            initialization={{ amount }}
             customization={{
               paymentMethods: {
                 creditCard: 'all',
