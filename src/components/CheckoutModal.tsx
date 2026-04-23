@@ -19,7 +19,8 @@ interface PublicConfig {
 
 export default function CheckoutModal({ planId, planName, amount, onClose, onSuccess }: Props) {
   const [preferenceId, setPreferenceId] = useState<string | null>(null)
-  const [error, setError] = useState<string | null>(null)
+  const [initError, setInitError] = useState<string | null>(null)
+  const [paymentError, setPaymentError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const initialized = useRef(false)
 
@@ -38,7 +39,7 @@ export default function CheckoutModal({ planId, planName, amount, onClose, onSuc
 
         setPreferenceId(prefRes.data.preferenceId)
       } catch {
-        setError('Error al iniciar el pago. Intentá de nuevo.')
+        setInitError('Error al iniciar el pago. Intentá de nuevo.')
       } finally {
         setLoading(false)
       }
@@ -47,6 +48,7 @@ export default function CheckoutModal({ planId, planName, amount, onClose, onSuc
   }, [planId])
 
   const handleSubmit = async (data: IPaymentFormData) => {
+    setPaymentError(null)
     const { formData } = data
     const payer = formData as unknown as {
       payer?: { identification?: { type?: string; number?: string } }
@@ -65,7 +67,9 @@ export default function CheckoutModal({ planId, planName, amount, onClose, onSuc
     if (res.data.status === 'approved' || res.data.status === 'in_process') {
       setTimeout(() => onSuccess(), 1000)
     } else {
-      throw new Error(`El pago fue ${res.data.status}. Intentá con otro medio de pago.`)
+      const msg = `El pago fue ${res.data.status}. Intentá con otro medio de pago.`
+      setPaymentError(msg)
+      throw new Error(msg)
     }
   }
 
@@ -80,9 +84,10 @@ export default function CheckoutModal({ planId, planName, amount, onClose, onSuc
         <p className={styles.amount}>{formatPrice(amount)}</p>
 
         {loading && <p className={styles.loading}>Cargando formulario de pago...</p>}
-        {error && <p className={styles.error}>{error}</p>}
+        {initError && <p className={styles.error}>{initError}</p>}
+        {paymentError && <p className={styles.error}>{paymentError}</p>}
 
-        {!loading && !error && preferenceId !== null && (
+        {!loading && !initError && preferenceId !== null && (
           <Payment
             initialization={{ amount }}
             customization={{
@@ -92,7 +97,11 @@ export default function CheckoutModal({ planId, planName, amount, onClose, onSuc
               } as Parameters<typeof Payment>[0]['customization']['paymentMethods'],
             }}
             onSubmit={handleSubmit}
-            onError={(err) => setError(err.message ?? 'Error procesando el pago')}
+            onError={(err) => {
+              if (err.message && !err.message.includes('payment_method_not_in_allowed_types')) {
+                setPaymentError(err.message)
+              }
+            }}
             onReady={() => {}}
           />
         )}
