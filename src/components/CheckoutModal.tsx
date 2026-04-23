@@ -88,7 +88,8 @@ export default function CheckoutModal({ planId, planName, amount, onClose, onSuc
             customization={{
               paymentMethods: {
                 creditCard: 'all',
-              },
+                debitCard: 'all',
+              } as Parameters<typeof Payment>[0]['customization']['paymentMethods'],
             }}
             onSubmit={handleSubmit}
             onError={(err) => setError(err.message ?? 'Error procesando el pago')}
