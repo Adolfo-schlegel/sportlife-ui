@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
+import ExpiringCard from '../../components/ExpiringCard'
 import client from '../../api/client'
 import { Users, CheckCircle, XCircle, DollarSign, CreditCard } from 'lucide-react'
 import styles from './AdminDashboard.module.css'
@@ -52,6 +53,8 @@ export default function AdminDashboard() {
           ))}
         </div>
       )}
+
+      <ExpiringCard />
 
       <div className={styles.panels}>
         <div className={styles.panel}>

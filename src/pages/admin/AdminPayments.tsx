@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import Layout from '../../components/Layout'
 import StatusBadge from '../../components/StatusBadge'
+import ManualPaymentModal from '../../components/ManualPaymentModal'
 import client from '../../api/client'
 import styles from '../../styles/table.module.css'
 
@@ -18,7 +20,8 @@ interface Payment {
 }
 
 export default function AdminPayments() {
-  const { data: payments = [], isLoading } = useQuery<Payment[]>({
+  const [showModal, setShowModal] = useState(false)
+  const { data: payments = [], isLoading, refetch } = useQuery<Payment[]>({
     queryKey: ['admin-payments'],
     queryFn: () => client.get('/payments').then(r => r.data),
   })
@@ -33,7 +36,15 @@ export default function AdminPayments() {
           <h1 className={styles.title}>Pagos</h1>
           <p className={styles.subtitle}>Historial completo de pagos</p>
         </div>
+        <button className={styles.btnPrimary} onClick={() => setShowModal(true)}>+ Registrar pago</button>
       </div>
+
+      {showModal && (
+        <ManualPaymentModal
+          onClose={() => setShowModal(false)}
+          onSuccess={() => { setShowModal(false); refetch() }}
+        />
+      )}
 
       {isLoading ? (
         <div className={styles.loading}>Cargando pagos...</div>
