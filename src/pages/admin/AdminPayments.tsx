@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import Layout from '../../components/Layout'
 import StatusBadge from '../../components/StatusBadge'
@@ -21,9 +21,23 @@ interface Payment {
 
 export default function AdminPayments() {
   const [showModal, setShowModal] = useState(false)
+  const [memberSearch, setMemberSearch] = useState('')
+  const [planFilter, setPlanFilter] = useState('')
+
   const { data: payments = [], isLoading, refetch } = useQuery<Payment[]>({
     queryKey: ['admin-payments'],
     queryFn: () => client.get('/payments').then(r => r.data),
+  })
+
+  const plans = useMemo(() => {
+    const names = [...new Set(payments.map(p => p.planName))].sort()
+    return names
+  }, [payments])
+
+  const filtered = payments.filter(p => {
+    const matchMember = !memberSearch || p.userName.toLowerCase().includes(memberSearch.toLowerCase())
+    const matchPlan = !planFilter || p.planName === planFilter
+    return matchMember && matchPlan
   })
 
   const formatMoney = (n: number) =>
@@ -37,6 +51,23 @@ export default function AdminPayments() {
           <p className={styles.subtitle}>Historial completo de pagos</p>
         </div>
         <button className={styles.btnPrimary} onClick={() => setShowModal(true)}>+ Registrar pago</button>
+      </div>
+
+      <div className={styles.filters}>
+        <input
+          className={styles.searchInput}
+          value={memberSearch}
+          onChange={e => setMemberSearch(e.target.value)}
+          placeholder="Buscar por nombre de socio..."
+        />
+        <select
+          className={styles.filterSelect}
+          value={planFilter}
+          onChange={e => setPlanFilter(e.target.value)}
+        >
+          <option value="">Todos los planes</option>
+          {plans.map(name => <option key={name} value={name}>{name}</option>)}
+        </select>
       </div>
 
       {showModal && (
@@ -60,7 +91,7 @@ export default function AdminPayments() {
                 </tr>
               </thead>
               <tbody>
-                {payments.map(p => (
+                {filtered.map(p => (
                   <tr key={p.id} className={styles.tr}>
                     <td className={styles.tdPrimary}>{p.userName}</td>
                     <td className={styles.tdSecondary}>{p.planName}</td>
@@ -72,7 +103,7 @@ export default function AdminPayments() {
                 ))}
               </tbody>
             </table>
-            {payments.length === 0 && <div className={styles.empty}>No hay pagos registrados</div>}
+            {filtered.length === 0 && <div className={styles.empty}>No se encontraron pagos</div>}
           </div>
         </div>
       )}

@@ -1,0 +1,54 @@
+.wrap { position: relative; }
+
+.input {
+  width: 100%;
+  padding: 0.7rem 0.875rem;
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+.input:focus { border-color: var(--red); }
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--color-bg-dark);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  z-index: 200;
+  list-style: none;
+  margin: 0;
+  padding: 0.25rem 0;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0.875rem;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.option:hover, .optionActive { background: var(--bg-elevated); }
+
+.optionName {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.optionEmail {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 1px;
+}

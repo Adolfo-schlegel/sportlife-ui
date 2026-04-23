@@ -46,6 +46,7 @@
 .tr { border-bottom: 1px solid var(--border); }
 .tr:last-child { border-bottom: none; }
 .tr:hover { background: var(--bg-elevated); }
+.trClickable { cursor: pointer; }
 
 .tdPrimary {
   padding: 0.875rem 1rem;
@@ -127,3 +128,26 @@
 }
 
 .btnPrimary:hover { background: var(--red-dark); }
+
+.filters {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.searchInput, .filterSelect {
+  padding: 0.6rem 0.875rem;
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.15s;
+  font-family: inherit;
+}
+.searchInput { flex: 1; min-width: 200px; }
+.filterSelect { min-width: 160px; }
+.searchInput:focus, .filterSelect:focus { border-color: var(--red); }
+.filterSelect option { background: var(--color-bg-dark); }

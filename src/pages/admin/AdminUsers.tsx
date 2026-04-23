@@ -1,5 +1,8 @@
+import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import Layout from '../../components/Layout'
+import MemberSearchInput from '../../components/MemberSearchInput'
+import MemberPaymentsModal from '../../components/MemberPaymentsModal'
 import client from '../../api/client'
 import styles from '../../styles/table.module.css'
 
@@ -12,10 +15,17 @@ interface User {
 }
 
 export default function AdminUsers() {
+  const [selectedId, setSelectedId] = useState('')
+  const [detailUser, setDetailUser] = useState<User | null>(null)
+
   const { data: users = [], isLoading } = useQuery<User[]>({
     queryKey: ['admin-users'],
     queryFn: () => client.get('/users').then(r => r.data),
   })
+
+  const filtered = selectedId
+    ? users.filter(u => u.id === selectedId)
+    : users
 
   return (
     <Layout>
@@ -23,6 +33,14 @@ export default function AdminUsers() {
         <div>
           <h1 className={styles.title}>Miembros</h1>
           <p className={styles.subtitle}>Todos los usuarios registrados</p>
+        </div>
+        <div style={{ width: 280 }}>
+          <MemberSearchInput
+            users={users}
+            selectedId={selectedId}
+            onSelect={setSelectedId}
+            placeholder="Buscar por nombre o email..."
+          />
         </div>
       </div>
 
@@ -40,8 +58,12 @@ export default function AdminUsers() {
                 </tr>
               </thead>
               <tbody>
-                {users.map(user => (
-                  <tr key={user.id} className={styles.tr}>
+                {filtered.map(user => (
+                  <tr
+                    key={user.id}
+                    className={`${styles.tr} ${styles.trClickable}`}
+                    onClick={() => setDetailUser(user)}
+                  >
                     <td className={styles.tdPrimary}>{user.name}</td>
                     <td className={styles.tdSecondary}>{user.email}</td>
                     <td className={styles.td}>
@@ -54,9 +76,18 @@ export default function AdminUsers() {
                 ))}
               </tbody>
             </table>
-            {users.length === 0 && <div className={styles.empty}>No hay usuarios registrados</div>}
+            {filtered.length === 0 && <div className={styles.empty}>No se encontraron usuarios</div>}
           </div>
         </div>
+      )}
+
+      {detailUser && (
+        <MemberPaymentsModal
+          userId={detailUser.id}
+          userName={detailUser.name}
+          userEmail={detailUser.email}
+          onClose={() => setDetailUser(null)}
+        />
       )}
     </Layout>
   )

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import client from '../api/client'
+import MemberSearchInput from './MemberSearchInput'
 import styles from './ManualPaymentModal.module.css'
 
 interface User { id: string; name: string; email: string }
@@ -68,10 +69,7 @@ export default function ManualPaymentModal({ onClose, onSuccess, prefillUserId, 
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.field}>
             <label className={styles.label}>Socio</label>
-            <select className={styles.select} value={userId} onChange={e => setUserId(e.target.value)} required>
-              <option value="">Seleccionar socio...</option>
-              {users.map(u => <option key={u.id} value={u.id}>{u.name} — {u.email}</option>)}
-            </select>
+            <MemberSearchInput users={users} selectedId={userId} onSelect={setUserId} />
           </div>
 
           <div className={styles.field}>
