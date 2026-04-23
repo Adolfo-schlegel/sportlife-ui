@@ -6,66 +6,55 @@
   gap: 1rem;
   margin-bottom: 2rem;
   padding-bottom: 1.25rem;
-  border-bottom: 2px solid var(--red);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
 .title {
-  font-size: 1.75rem;
+  font-size: 1.9rem;
   font-weight: 900;
   color: #111111;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
 }
 
-.subtitle { color: var(--text-secondary); font-size: 12px; margin-top: 4px; }
-.loading  { color: var(--text-secondary); font-size: 13px; }
+.subtitle { color: #888888; font-size: 13px; margin-top: 4px; }
+.loading  { color: #888888; font-size: 14px; }
 
 .btnNew {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 0.625rem 1.25rem;
+  padding: 0.7rem 1.25rem;
   background: var(--red);
   color: white;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   border: none;
   cursor: pointer;
   transition: background 0.12s;
-  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  border-radius: 10px;
 }
 
 .btnNew:hover { background: var(--red-dark); }
 
 .form {
   background: #FFFFFF;
-  border: 1px solid rgba(0,0,0,0.1);
-  border-left: 4px solid var(--red);
+  border: 1px solid rgba(0,0,0,0.08);
   border-top: 3px solid var(--red);
+  border-radius: 16px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
 }
 
 .formTitle {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 900;
   color: #111111;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.formTitle::before {
-  content: '';
-  display: block;
-  width: 16px;
-  height: 2px;
-  background: var(--red);
 }
 
 .formGrid {
@@ -80,57 +69,55 @@
 .field { display: flex; flex-direction: column; gap: 0.5rem; }
 
 .label {
-  font-size: 9px;
-  font-weight: 900;
-  color: var(--text-secondary);
+  font-size: 10px;
+  font-weight: 700;
+  color: #888888;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
 }
 
 .input {
   width: 100%;
-  padding: 0.6rem 0.875rem;
+  padding: 0.7rem 0.875rem;
   background: #F5F5F5;
-  border: 1px solid rgba(0,0,0,0.12);
-  border-left: 3px solid rgba(0,0,0,0.12);
+  border: 1px solid rgba(0,0,0,0.1);
   color: #111111;
   font-size: 14px;
   outline: none;
-  transition: border-color 0.12s;
-  border-radius: 0;
+  transition: border-color 0.12s, box-shadow 0.12s;
+  border-radius: 10px;
 }
 
-.input:focus { border-left-color: var(--red); box-shadow: 0 0 0 2px rgba(204,0,0,0.06); }
+.input:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(204,0,0,0.08); }
 
 .formActions { display: flex; gap: 0.75rem; }
 
 .btnSave {
-  padding: 0.6rem 1.25rem;
+  padding: 0.7rem 1.25rem;
   background: var(--red);
   color: white;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   border: none;
   cursor: pointer;
   transition: background 0.12s;
-  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  border-radius: 10px;
 }
 
 .btnSave:hover { background: var(--red-dark); }
 
 .btnCancel {
-  padding: 0.6rem 1rem;
+  padding: 0.7rem 1rem;
   background: transparent;
-  color: #777777;
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  border: 1px solid rgba(0,0,0,0.15);
+  color: #888888;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid rgba(0,0,0,0.12);
   cursor: pointer;
   transition: border-color 0.12s, color 0.12s;
+  border-radius: 10px;
 }
 
 .btnCancel:hover { border-color: var(--red); color: var(--red); }
@@ -146,13 +133,13 @@
 
 .card {
   background: #FFFFFF;
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid rgba(0,0,0,0.08);
   border-top: 3px solid var(--red);
+  border-radius: 16px;
   padding: 1.25rem;
-  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
   transition: box-shadow 0.15s;
 }
-.card:hover { box-shadow: 4px 4px 0 rgba(204,0,0,0.15); }
+.card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
 
 .cardInactive { opacity: 0.5; border-top-color: rgba(0,0,0,0.1); }
 
@@ -164,11 +151,11 @@
 }
 
 .planName {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 900;
   color: #111111;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
 }
 
 .cardActions { display: flex; gap: 4px; }
@@ -178,20 +165,21 @@
   border: none;
   cursor: pointer;
   padding: 4px;
-  color: #888888;
+  color: #AAAAAA;
   transition: color 0.12s;
   display: flex;
+  border-radius: 6px;
 }
 
-.iconBtn:hover { color: #111111; }
+.iconBtn:hover { color: #333333; }
 .iconBtnDanger:hover { color: var(--red); }
 
 .planPrice {
-  font-size: 1.75rem;
+  font-size: 2rem;
   font-weight: 900;
   color: var(--red);
   margin-bottom: 2px;
 }
 
-.planDays    { font-size: 11px; color: #888888; }
-.planInactive { font-size: 10px; color: #888888; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.1em; }
+.planDays    { font-size: 12px; color: #888888; }
+.planInactive { font-size: 11px; color: #AAAAAA; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.1em; }

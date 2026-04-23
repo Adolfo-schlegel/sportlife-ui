@@ -1,10 +1,9 @@
 .page {
   min-height: 100vh;
   display: flex;
-  background: var(--bg-base);
+  background: #FFFFFF;
 }
 
-/* Left panel – tribal branding */
 .imageSide {
   display: none;
   flex: 1;
@@ -16,22 +15,9 @@
   flex-direction: column;
   gap: 2rem;
   padding: 3rem;
-  background-image:
-    repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(204,0,0,0.06) 30px, rgba(204,0,0,0.06) 31px),
-    repeating-linear-gradient(-45deg, transparent, transparent 30px, rgba(204,0,0,0.04) 30px, rgba(204,0,0,0.04) 31px);
 }
 
 @media (min-width: 768px) { .imageSide { display: flex; } }
-
-/* Angular tribal border */
-.imageSide::before {
-  content: '';
-  position: absolute;
-  inset: 16px;
-  border: 1px solid rgba(204,0,0,0.25);
-  clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 24px 100%, 0 calc(100% - 24px));
-  pointer-events: none;
-}
 
 .imageSide::after {
   content: '';
@@ -48,7 +34,7 @@
   height: 180px;
   object-fit: contain;
   filter: drop-shadow(0 8px 32px rgba(204,0,0,0.5));
-  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+  border-radius: 24px;
 }
 
 .overlayTitle {
@@ -70,18 +56,13 @@
   margin-top: -1.25rem;
 }
 
-/* Right panel – form */
 .formSide {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem 1.5rem;
   width: 100%;
-  background: #FFFFFF;
-  background-image: repeating-linear-gradient(
-    45deg, transparent, transparent 40px,
-    rgba(204,0,0,0.018) 40px, rgba(204,0,0,0.018) 41px
-  );
+  background: #FAFAFA;
 }
 
 @media (min-width: 768px) {
@@ -94,9 +75,9 @@
   background: #FFFFFF;
   border: 1px solid rgba(0,0,0,0.1);
   border-top: 3px solid var(--red);
+  border-radius: 20px;
   padding: 2.5rem 2rem;
-  box-shadow: 4px 4px 0 rgba(204,0,0,0.15);
-  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
 }
 
 .header {
@@ -110,6 +91,7 @@
   object-fit: contain;
   display: block;
   margin: 0 auto 1rem;
+  border-radius: 20px;
 }
 
 .title {
@@ -117,15 +99,15 @@
   font-weight: 900;
   color: var(--red);
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
   line-height: 1;
 }
 
 .subtitle {
-  font-size: 10px;
-  color: var(--text-secondary);
+  font-size: 11px;
+  color: #888888;
   text-transform: uppercase;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.22em;
   margin-top: 6px;
 }
 
@@ -134,57 +116,54 @@
 .field { display: flex; flex-direction: column; gap: 0.5rem; }
 
 .label {
-  font-size: 9px;
-  font-weight: 900;
+  font-size: 10px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--text-secondary);
+  letter-spacing: 0.18em;
+  color: #888888;
 }
 
 .input {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.875rem 1rem;
   background: #F5F5F5;
-  border: 1px solid rgba(0,0,0,0.12);
-  border-left: 3px solid rgba(0,0,0,0.12);
+  border: 1px solid rgba(0,0,0,0.1);
   color: #111111;
   font-size: 14px;
   outline: none;
   transition: border-color 0.15s, box-shadow 0.15s;
-  border-radius: 0;
+  border-radius: 12px;
 }
 
 .input:focus {
   border-color: var(--red);
-  border-left-color: var(--red);
-  box-shadow: 0 0 0 2px rgba(204,0,0,0.08);
+  box-shadow: 0 0 0 3px rgba(204,0,0,0.1);
 }
-.input::placeholder { color: #AAAAAA; }
+.input::placeholder { color: #BBBBBB; }
 
 .error {
   background: rgba(204,0,0,0.05);
-  border: 1px solid var(--red);
-  border-left: 3px solid var(--red);
+  border: 1px solid rgba(204,0,0,0.25);
   color: var(--red);
-  padding: 0.75rem 1rem;
-  font-size: 12px;
+  padding: 0.875rem 1rem;
+  font-size: 13px;
   font-weight: 600;
+  border-radius: 10px;
 }
 
 .btn {
   width: 100%;
-  padding: 0.875rem;
+  padding: 0.95rem;
   background: var(--red);
   color: white;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   border: none;
   cursor: pointer;
   transition: background 0.15s, transform 0.1s;
-  border-radius: 0;
-  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  border-radius: 12px;
   margin-top: 0.25rem;
 }
 
@@ -195,17 +174,14 @@
 .footer {
   text-align: center;
   margin-top: 1.5rem;
-  font-size: 12px;
-  color: var(--text-secondary);
+  font-size: 13px;
+  color: #888888;
 }
 
 .footerLink {
   color: var(--red);
-  font-weight: 900;
+  font-weight: 700;
   text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 11px;
 }
 
 .footerLink:hover { color: var(--red-dark); }

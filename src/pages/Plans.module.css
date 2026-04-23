@@ -1,27 +1,27 @@
-.header { margin-bottom: 2rem; padding-bottom: 1.25rem; border-bottom: 2px solid var(--red); }
+.header { margin-bottom: 2rem; }
 
 .title {
-  font-size: 1.75rem;
+  font-size: 1.9rem;
   font-weight: 900;
   color: #111111;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
 }
 
-.subtitle { color: var(--text-secondary); font-size: 12px; margin-top: 4px; }
+.subtitle { color: #888888; font-size: 13px; margin-top: 4px; }
 
 .error {
   background: rgba(204,0,0,0.05);
-  border: 1px solid var(--red);
-  border-left: 3px solid var(--red);
+  border: 1px solid rgba(204,0,0,0.25);
   color: var(--red);
-  padding: 0.75rem 1rem;
-  font-size: 12px;
+  padding: 0.875rem 1rem;
+  font-size: 13px;
   font-weight: 600;
   margin-bottom: 1.5rem;
+  border-radius: 12px;
 }
 
-.loading { color: var(--text-secondary); font-size: 13px; }
+.loading { color: #888888; font-size: 14px; }
 
 .grid {
   display: grid;
@@ -36,39 +36,40 @@
 .card {
   position: relative;
   background: #FFFFFF;
-  border: 1px solid rgba(0,0,0,0.1);
-  border-top: 3px solid rgba(0,0,0,0.1);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-top: 3px solid rgba(0,0,0,0.08);
+  border-radius: 18px;
   padding: 1.75rem;
   display: flex;
   flex-direction: column;
-  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
-  transition: box-shadow 0.15s, transform 0.15s;
+  transition: transform 0.15s, box-shadow 0.15s;
 }
 
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 4px 4px 0 rgba(204,0,0,0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.1);
 }
 
-.cardPopular { border-top-color: var(--red); border-color: rgba(204,0,0,0.3); }
+.cardPopular { border-top-color: var(--red); }
 
 .popularBadge {
   position: absolute;
-  top: -1px;
+  top: -13px;
   left: 50%;
   transform: translateX(-50%);
   background: var(--red);
   color: white;
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 900;
-  padding: 3px 16px;
+  padding: 4px 16px;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.14em;
   white-space: nowrap;
+  border-radius: 20px;
 }
 
 .price {
-  font-size: 2.5rem;
+  font-size: 2.75rem;
   font-weight: 900;
   color: #111111;
   line-height: 1;
@@ -78,15 +79,15 @@
 .pricePopular { color: var(--red); }
 
 .planName {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 900;
   color: #111111;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   margin-bottom: 0.25rem;
 }
 
-.priceMeta { font-size: 11px; color: var(--text-secondary); margin-bottom: 1.25rem; }
+.priceMeta { font-size: 12px; color: #888888; margin-bottom: 1.25rem; }
 
 .features { list-style: none; flex: 1; margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
 
@@ -98,19 +99,19 @@
   color: #555555;
 }
 
-.featureIcon { color: var(--green-bright); flex-shrink: 0; }
+.featureIcon { color: #16A34A; flex-shrink: 0; }
 
 .btn {
   width: 100%;
-  padding: 0.75rem;
-  font-size: 11px;
+  padding: 0.875rem;
+  font-size: 12px;
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.15em;
   border: none;
   cursor: pointer;
   transition: background 0.12s, color 0.12s;
-  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  border-radius: 10px;
 }
 
 .btn:disabled { opacity: 0.6; cursor: not-allowed; }
@@ -118,5 +119,5 @@
 .btnFilled { background: var(--red); color: white; }
 .btnFilled:hover:not(:disabled) { background: var(--red-dark); }
 
-.btnOutline { background: transparent; color: #111111; border: 1px solid rgba(0,0,0,0.2); }
+.btnOutline { background: transparent; color: #333333; border: 1px solid rgba(0,0,0,0.18); }
 .btnOutline:hover:not(:disabled) { border-color: var(--red); color: var(--red); }

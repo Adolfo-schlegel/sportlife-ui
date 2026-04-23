@@ -3,7 +3,7 @@ import { Menu } from 'lucide-react'
 import Sidebar from './Sidebar'
 import styles from './Layout.module.css'
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children, dark }: { children: React.ReactNode; dark?: boolean }) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -26,7 +26,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <span className={styles.topBarLogo}>SPORTLIFE</span>
         </div>
 
-        <main className={styles.main}>
+        <main className={`${styles.main} ${dark ? styles.mainDark : ''}`}>
           {children}
         </main>
       </div>

@@ -37,7 +37,7 @@ export default function Dashboard() {
     : styles.memberCardExpired
 
   return (
-    <Layout>
+    <Layout dark>
       <div className={styles.header}>
         <h1 className={styles.title}>Hola, {user?.name?.split(' ')[0]}</h1>
         <p className={styles.subtitle}>Panel de tu membresía en SportLife</p>

@@ -2,7 +2,7 @@
   width: 240px;
   min-height: 100vh;
   background: #FFFFFF;
-  border-right: 1px solid rgba(0,0,0,0.12);
+  border-right: 1px solid rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
 }
@@ -24,11 +24,11 @@
 
 .section {
   padding: 0.75rem 1.25rem 0.3rem;
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 900;
   color: var(--red);
   text-transform: uppercase;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.24em;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -36,9 +36,10 @@
 .section::before {
   content: '';
   display: block;
-  width: 16px;
+  width: 14px;
   height: 2px;
   background: var(--red);
+  border-radius: 2px;
   flex-shrink: 0;
 }
 
@@ -46,49 +47,47 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 0.7rem 1.25rem;
-  font-size: 12px;
-  font-weight: 700;
-  color: #444444;
+  padding: 0.7rem 1rem;
+  margin: 2px 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #555555;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  border-left: 3px solid transparent;
-  transition: color 0.12s, border-color 0.12s, background 0.12s;
-  margin: 1px 0;
+  letter-spacing: 0.06em;
+  border-radius: 10px;
+  transition: color 0.12s, background 0.12s;
   text-decoration: none;
 }
 
 .link:hover {
   color: var(--red);
-  background: rgba(204,0,0,0.04);
-  border-left-color: rgba(204,0,0,0.3);
+  background: rgba(204,0,0,0.05);
 }
 
 .linkActive {
   color: var(--red);
-  background: rgba(204,0,0,0.06);
-  border-left-color: var(--red);
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+  background: rgba(204,0,0,0.08);
+  font-weight: 700;
 }
 
 .footer {
-  border-top: 1px solid rgba(0,0,0,0.1);
+  border-top: 1px solid rgba(0,0,0,0.08);
   padding: 1rem 1.25rem;
-  background: #F5F5F5;
+  background: #F8F8F8;
 }
 
 .userName {
-  font-size: 12px;
-  font-weight: 900;
+  font-size: 13px;
+  font-weight: 700;
   color: #111111;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   margin-bottom: 2px;
 }
 
 .userRole {
-  font-size: 9px;
-  color: var(--text-secondary);
+  font-size: 10px;
+  color: #888888;
   text-transform: uppercase;
   letter-spacing: 0.18em;
   margin-bottom: 0.75rem;
@@ -100,16 +99,16 @@
   gap: 8px;
   color: #888888;
   background: none;
-  border: 1px solid rgba(0,0,0,0.12);
+  border: 1px solid rgba(0,0,0,0.1);
   cursor: pointer;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  padding: 0.4rem 0.75rem;
+  padding: 0.45rem 0.875rem;
   width: 100%;
+  border-radius: 8px;
   transition: color 0.12s, border-color 0.12s;
-  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
 }
 
 .logoutBtn:hover { color: var(--red); border-color: var(--red); }
