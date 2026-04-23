@@ -1,8 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Layout from '../components/Layout'
-import CheckoutModal from '../components/CheckoutModal'
 import client from '../api/client'
 import { Check } from 'lucide-react'
 import styles from './Plans.module.css'
@@ -17,8 +15,6 @@ interface Plan {
 
 export default function Plans() {
   const navigate = useNavigate()
-  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null)
-  const [error, setError] = useState('')
 
   const { data: plans = [], isLoading } = useQuery<Plan[]>({
     queryKey: ['plans'],
@@ -42,9 +38,7 @@ export default function Plans() {
         <p className={styles.subtitle}>Elegí el plan que mejor se adapte a tu entrenamiento</p>
       </div>
 
-      {error && <div className={styles.error}>{error}</div>}
-
-      {isLoading ? (
+{isLoading ? (
         <div className={styles.loading}>Cargando planes...</div>
       ) : (
         <div className={styles.grid}>
@@ -72,7 +66,7 @@ export default function Plans() {
                 </ul>
 
                 <button
-                  onClick={() => { setError(''); setSelectedPlan(plan) }}
+                  onClick={() => navigate('/checkout', { state: { planId: plan.id, planName: plan.name, amount: plan.price } })}
                   className={`${styles.btn} ${popular ? styles.btnFilled : styles.btnOutline}`}
                 >
                   SELECCIONAR PLAN
@@ -83,15 +77,6 @@ export default function Plans() {
         </div>
       )}
 
-      {selectedPlan && (
-        <CheckoutModal
-          planId={selectedPlan.id}
-          planName={selectedPlan.name}
-          amount={selectedPlan.price}
-          onClose={() => setSelectedPlan(null)}
-          onSuccess={() => navigate('/payment-success')}
-        />
-      )}
     </Layout>
   )
 }

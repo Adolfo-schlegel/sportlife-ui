@@ -12,6 +12,7 @@ import AdminUsers from './pages/admin/AdminUsers'
 import AdminPlans from './pages/admin/AdminPlans'
 import AdminPayments from './pages/admin/AdminPayments'
 import AdminMercadoPago from './pages/admin/AdminMercadoPago'
+import Checkout from './pages/Checkout'
 
 function ProtectedRoute({
   children,
@@ -49,6 +50,7 @@ export default function App() {
       <Route path="/register" element={user ? <Navigate to={homeRedirect} replace /> : <Register />} />
       <Route path="/dashboard" element={<ProtectedRoute memberOnly><Dashboard /></ProtectedRoute>} />
       <Route path="/plans" element={<ProtectedRoute memberOnly><Plans /></ProtectedRoute>} />
+      <Route path="/checkout" element={<ProtectedRoute memberOnly><Checkout /></ProtectedRoute>} />
       <Route path="/payment/success" element={<PaymentSuccess />} />
       <Route path="/payment/failure" element={<PaymentFailure />} />
       <Route path="/payment/pending" element={<PaymentPending />} />
