@@ -1,11 +1,11 @@
 .badge {
   display: inline-block;
-  padding: 2px 8px;
+  padding: 3px 10px;
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  border-radius: 0;
+  border-radius: 20px;
   border: 1px solid;
 }
 
@@ -22,15 +22,15 @@
 }
 
 .expired {
-  background: rgba(192, 57, 43, 0.12);
+  background: rgba(225, 6, 0, 0.1);
   color: var(--red);
   border-color: var(--red);
 }
 
 .pending {
-  background: rgba(204, 85, 0, 0.12);
-  color: var(--orange);
-  border-color: var(--orange);
+  background: rgba(225, 6, 0, 0.08);
+  color: var(--color-gray-light);
+  border-color: var(--color-gray-dark);
 }
 
 .approved {
@@ -40,7 +40,7 @@
 }
 
 .none {
-  background: rgba(122, 143, 122, 0.1);
+  background: rgba(166, 166, 166, 0.1);
   color: var(--text-secondary);
   border-color: var(--border);
 }

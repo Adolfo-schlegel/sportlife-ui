@@ -22,6 +22,7 @@
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-left: 4px solid var(--border);
+  border-radius: var(--radius-md);
   padding: 1.5rem;
 }
 
@@ -47,7 +48,7 @@
   color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.15s;
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
 }
 
 .modeSandboxActive { background: var(--yellow); color: #000; border-color: var(--yellow); }
@@ -82,12 +83,12 @@
   font-size: 14px;
   outline: none;
   transition: border-color 0.15s;
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
 }
 
 .inputWithBtn { padding-right: 2.5rem; }
 
-.input:focus { border-color: var(--orange); }
+.input:focus { border-color: var(--red); }
 .input::placeholder { color: var(--text-secondary); opacity: 0.6; }
 
 .eyeBtn {
@@ -121,10 +122,10 @@
   border: 1px solid var(--border);
   cursor: pointer;
   transition: border-color 0.15s, color 0.15s;
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
 }
 
-.btnTest:hover:not(:disabled) { border-color: var(--orange); color: var(--text-primary); }
+.btnTest:hover:not(:disabled) { border-color: var(--red); color: var(--text-primary); }
 .btnTest:disabled { opacity: 0.6; cursor: not-allowed; }
 
 .btnSave {
@@ -141,7 +142,7 @@
   border: none;
   cursor: pointer;
   transition: background 0.15s;
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
 }
 
 .btnSave:hover:not(:disabled) { background: var(--red-dark); }
@@ -156,6 +157,7 @@
   padding: 0.75rem 1rem;
   background: rgba(74,122,58,0.1);
   border: 1px solid var(--green);
+  border-radius: var(--radius-sm);
   color: var(--green-bright);
   font-size: 13px;
 }
@@ -165,8 +167,9 @@
   align-items: center;
   gap: 10px;
   padding: 0.75rem 1rem;
-  background: rgba(192,57,43,0.1);
+  background: rgba(225,6,0,0.08);
   border: 1px solid var(--red);
+  border-radius: var(--radius-sm);
   color: var(--red);
   font-size: 13px;
 }
@@ -174,6 +177,7 @@
 .guide {
   background: var(--bg-surface);
   border: 1px solid var(--border);
+  border-radius: var(--radius-md);
   padding: 1.5rem;
 }
 
@@ -205,11 +209,12 @@
   font-size: 13px;
 }
 
-.guideOl li span { color: var(--orange); }
+.guideOl li span { color: var(--red); }
 
 .cards {
   background: var(--bg-base);
   border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
   padding: 1rem;
   display: flex;
   flex-direction: column;

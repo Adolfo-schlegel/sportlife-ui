@@ -10,50 +10,58 @@
 }
 
 .modal {
-  background: #1a1a1a;
-  border: 1px solid #333;
-  border-radius: 12px;
+  background: var(--color-bg-dark);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
   padding: 2rem;
   width: 100%;
   max-width: 520px;
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.5);
 }
 
 .closeBtn {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  background: none;
-  border: none;
-  color: #999;
-  font-size: 1.5rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  font-size: 1.25rem;
   cursor: pointer;
   line-height: 1;
-  padding: 0.25rem 0.5rem;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s, background 0.15s;
 }
 
 .closeBtn:hover {
-  color: #fff;
+  color: var(--color-white-main);
+  background: var(--border);
 }
 
 .title {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--color-white-main);
   margin: 0 0 0.25rem 0;
 }
 
 .amount {
   font-size: 1rem;
-  color: #e53e3e;
+  color: var(--color-red-primary);
   font-weight: 600;
   margin: 0 0 1.5rem 0;
 }
 
 .loading {
-  color: #999;
+  color: var(--color-gray-mid);
   text-align: center;
   padding: 2rem 0;
 }
@@ -62,7 +70,7 @@
   color: #fc8181;
   background: rgba(252, 129, 129, 0.1);
   border: 1px solid rgba(252, 129, 129, 0.3);
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   padding: 0.75rem 1rem;
   margin-bottom: 1rem;
   font-size: 0.875rem;

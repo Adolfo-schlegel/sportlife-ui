@@ -11,16 +11,23 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 1.5rem 1.25rem;
+  padding: 1.25rem;
   border-bottom: 1px solid var(--border);
+  background: var(--color-purple-accent);
 }
 
-.logoIcon { color: var(--orange); }
+.logoImg {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: var(--radius-xs);
+  flex-shrink: 0;
+}
 
 .logoText {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 900;
-  color: var(--red);
+  color: #fff;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   line-height: 1;
@@ -28,7 +35,7 @@
 
 .logoSub {
   font-size: 10px;
-  color: var(--text-secondary);
+  color: rgba(255,255,255,0.55);
   text-transform: uppercase;
   letter-spacing: 0.18em;
   margin-top: 2px;
@@ -56,6 +63,9 @@
   border-left: 3px solid transparent;
   transition: color 0.15s, background 0.15s, border-color 0.15s;
   cursor: pointer;
+  margin: 2px 8px;
+  border-radius: var(--radius-sm);
+  border-left: none;
 }
 
 .link:hover {
@@ -65,8 +75,9 @@
 
 .linkActive {
   color: var(--text-primary);
-  background: var(--bg-elevated);
-  border-left-color: var(--orange);
+  background: rgba(225, 6, 0, 0.12);
+  border-left: none;
+  color: var(--color-red-primary);
 }
 
 .footer {

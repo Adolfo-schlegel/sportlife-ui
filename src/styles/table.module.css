@@ -21,6 +21,7 @@
 .tableWrap {
   background: var(--bg-surface);
   border: 1px solid var(--border);
+  border-radius: var(--radius-md);
   overflow: hidden;
 }
 
@@ -79,7 +80,7 @@
 
 .tdAccent {
   padding: 0.875rem 1rem;
-  color: var(--orange);
+  color: var(--red);
   font-size: 13px;
   font-weight: 700;
   white-space: nowrap;
@@ -96,17 +97,17 @@
 
 .roleBadge {
   display: inline-block;
-  padding: 2px 8px;
+  padding: 3px 10px;
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   border: 1px solid;
-  border-radius: 0;
+  border-radius: 20px;
 }
 
-.roleAdmin  { color: var(--red);  border-color: var(--red);  background: rgba(192,57,43,0.1); }
-.roleMember { color: #63B3ED;     border-color: #63B3ED;     background: rgba(99,179,237,0.1); }
+.roleAdmin  { color: var(--red);  border-color: var(--red);  background: rgba(225,6,0,0.08); }
+.roleMember { color: #63B3ED;     border-color: #63B3ED;     background: rgba(99,179,237,0.08); }
 
 .btnPrimary {
   display: flex;
@@ -122,7 +123,7 @@
   border: none;
   cursor: pointer;
   transition: background 0.15s;
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
 }
 
 .btnPrimary:hover { background: var(--red-dark); }

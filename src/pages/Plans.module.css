@@ -11,12 +11,13 @@
 .subtitle { color: var(--text-secondary); font-size: 13px; margin-top: 4px; }
 
 .error {
-  background: rgba(192, 57, 43, 0.1);
+  background: rgba(225, 6, 0, 0.08);
   border: 1px solid var(--red);
   color: var(--red);
   padding: 0.75rem 1rem;
   font-size: 13px;
   margin-bottom: 1.5rem;
+  border-radius: var(--radius-sm);
 }
 
 .loading { color: var(--text-secondary); font-size: 13px; }
@@ -36,14 +37,21 @@
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-top: 3px solid var(--border);
+  border-radius: var(--radius-md);
   padding: 1.75rem;
   display: flex;
   flex-direction: column;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
 
 .cardPopular {
-  border-top-color: var(--orange);
-  border-color: var(--orange);
+  border-top-color: var(--red);
+  border-color: var(--red);
 }
 
 .popularBadge {
@@ -51,14 +59,15 @@
   top: -12px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--orange);
+  background: var(--red);
   color: white;
   font-size: 10px;
   font-weight: 900;
-  padding: 3px 12px;
+  padding: 3px 14px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   white-space: nowrap;
+  border-radius: 20px;
 }
 
 .price {
@@ -69,7 +78,7 @@
   margin-bottom: 0.25rem;
 }
 
-.pricePopular { color: var(--orange); }
+.pricePopular { color: var(--red); }
 
 .planName {
   font-size: 1.1rem;
@@ -104,7 +113,7 @@
   border: none;
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
 }
 
 .btn:disabled { opacity: 0.6; cursor: not-allowed; }
@@ -113,4 +122,4 @@
 .btnFilled:hover:not(:disabled) { background: var(--red-dark); }
 
 .btnOutline { background: transparent; color: var(--text-primary); border: 1px solid var(--red); }
-.btnOutline:hover:not(:disabled) { background: rgba(192,57,43,0.1); }
+.btnOutline:hover:not(:disabled) { background: rgba(225,6,0,0.08); }

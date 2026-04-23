@@ -25,6 +25,7 @@
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-top: 3px solid var(--border);
+  border-radius: var(--radius-md);
   padding: 1.25rem;
   display: flex;
   justify-content: space-between;
@@ -33,7 +34,7 @@
 
 .statCardRed    { border-top-color: var(--red); }
 .statCardGreen  { border-top-color: var(--green-bright); }
-.statCardOrange { border-top-color: var(--orange); }
+.statCardOrange { border-top-color: var(--red); }
 .statCardYellow { border-top-color: var(--yellow); }
 .statCardBlue   { border-top-color: #63B3ED; }
 
@@ -54,7 +55,7 @@
 
 .iconRed    { color: var(--red); }
 .iconGreen  { color: var(--green-bright); }
-.iconOrange { color: var(--orange); }
+.iconOrange { color: var(--red); }
 .iconYellow { color: var(--yellow); }
 .iconBlue   { color: #63B3ED; }
 
@@ -69,6 +70,7 @@
 .panel {
   background: var(--bg-surface);
   border: 1px solid var(--border);
+  border-radius: var(--radius-md);
   padding: 1.5rem;
 }
 
@@ -88,13 +90,14 @@
   padding: 0.75rem 1rem;
   background: var(--bg-base);
   border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
   color: var(--text-secondary);
   font-size: 13px;
   text-decoration: none;
   transition: border-color 0.15s, color 0.15s;
 }
 
-.quickLink:hover { border-color: var(--orange); color: var(--text-primary); }
+.quickLink:hover { border-color: var(--red); color: var(--text-primary); }
 
 .infoRow {
   display: flex;

@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import { LayoutDashboard, Users, CreditCard, Dumbbell, LogOut, Shield, Settings } from 'lucide-react'
 import styles from './Sidebar.module.css'
+import logoImg from '../assets/logo.png'
 
 interface SidebarProps {
   onClose?: () => void
@@ -22,7 +23,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
   return (
     <aside className={styles.sidebar}>
       <div className={styles.logoArea}>
-        <Dumbbell size={26} className={styles.logoIcon} />
+        <img src={logoImg} alt="Sportlife" className={styles.logoImg} />
         <div>
           <div className={styles.logoText}>SPORTLIFE</div>
           <div className={styles.logoSub}>CrossFit Gym</div>

@@ -37,7 +37,7 @@
   align-items: center;
   gap: 1rem;
   padding: 0.75rem 1rem;
-  background: var(--bg-surface);
+  background: var(--color-purple-accent);
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
@@ -47,7 +47,7 @@
 .topBarLogo {
   font-size: 16px;
   font-weight: 900;
-  color: var(--red);
+  color: #fff;
   text-transform: uppercase;
   letter-spacing: 0.15em;
 }
@@ -55,7 +55,7 @@
 .hamburger {
   background: none;
   border: none;
-  color: var(--text-secondary);
+  color: rgba(255,255,255,0.7);
   cursor: pointer;
   padding: 4px;
   display: flex;
@@ -63,7 +63,7 @@
   transition: color 0.15s;
 }
 
-.hamburger:hover { color: var(--text-primary); }
+.hamburger:hover { color: #fff; }
 
 .main {
   flex: 1;
