@@ -54,22 +54,32 @@ export default function CheckoutModal({ planId, planName, amount, onClose, onSuc
       payer?: { identification?: { type?: string; number?: string } }
     }
 
-    const res = await client.post('/payments/process', {
-      planId,
-      token: (formData as unknown as { token: string }).token,
-      paymentMethodId: (formData as unknown as { payment_method_id: string }).payment_method_id,
-      installments: (formData as unknown as { installments: number }).installments ?? 1,
-      issuerId: (formData as unknown as { issuer_id?: string }).issuer_id ?? null,
-      identificationType: payer.payer?.identification?.type ?? 'DNI',
-      identificationNumber: payer.payer?.identification?.number ?? '0',
-    })
+    try {
+      const res = await client.post('/payments/process', {
+        planId,
+        token: (formData as unknown as { token: string }).token,
+        paymentMethodId: (formData as unknown as { payment_method_id: string }).payment_method_id,
+        installments: (formData as unknown as { installments: number }).installments ?? 1,
+        issuerId: (formData as unknown as { issuer_id?: string }).issuer_id ?? null,
+        identificationType: payer.payer?.identification?.type ?? 'DNI',
+        identificationNumber: payer.payer?.identification?.number ?? '0',
+      })
 
-    if (res.data.status === 'approved' || res.data.status === 'in_process') {
-      setTimeout(() => onSuccess(), 1000)
-    } else {
-      const msg = `El pago fue ${res.data.status}. Intentá con otro medio de pago.`
-      setPaymentError(msg)
-      throw new Error(msg)
+      if (res.data.status === 'approved' || res.data.status === 'in_process') {
+        setTimeout(() => onSuccess(), 1000)
+      } else {
+        const msg = `El pago fue ${res.data.status}. Intentá con otro medio de pago.`
+        setPaymentError(msg)
+        throw new Error(msg)
+      }
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err)
+      if (message.includes('internal_error') || message.includes('InternalServerError')) {
+        setPaymentError('Error temporal del sandbox de MercadoPago. Intentá de nuevo en unos segundos.')
+      } else if (message && !message.includes('El pago fue')) {
+        setPaymentError(message)
+      }
+      throw err
     }
   }
 
