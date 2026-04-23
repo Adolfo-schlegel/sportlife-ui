@@ -88,7 +88,6 @@ export default function CheckoutModal({ planId, planName, amount, onClose, onSuc
             customization={{
               paymentMethods: {
                 creditCard: 'all',
-                debitCard: 'all',
               },
             }}
             onSubmit={handleSubmit}
