@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Layout from '../components/Layout'
+import CheckoutModal from '../components/CheckoutModal'
 import client from '../api/client'
 import { Check } from 'lucide-react'
 import styles from './Plans.module.css'
@@ -14,26 +16,14 @@ interface Plan {
 }
 
 export default function Plans() {
-  const [loadingPlan, setLoadingPlan] = useState<string | null>(null)
+  const navigate = useNavigate()
+  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null)
   const [error, setError] = useState('')
 
   const { data: plans = [], isLoading } = useQuery<Plan[]>({
     queryKey: ['plans'],
     queryFn: () => client.get('/plans').then(r => r.data),
   })
-
-  const handleSelectPlan = async (plan: Plan) => {
-    setError('')
-    setLoadingPlan(plan.id)
-    try {
-      const res = await client.post('/payments/preference', { planId: plan.id })
-      window.location.href = res.data.initPoint
-    } catch (err: unknown) {
-      const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message
-      setError(msg || 'Error al procesar el pago. Intentá de nuevo.')
-      setLoadingPlan(null)
-    }
-  }
 
   const formatPrice = (price: number) =>
     new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', minimumFractionDigits: 0 }).format(price)
@@ -82,16 +72,25 @@ export default function Plans() {
                 </ul>
 
                 <button
-                  onClick={() => handleSelectPlan(plan)}
-                  disabled={loadingPlan === plan.id}
+                  onClick={() => { setError(''); setSelectedPlan(plan) }}
                   className={`${styles.btn} ${popular ? styles.btnFilled : styles.btnOutline}`}
                 >
-                  {loadingPlan === plan.id ? 'Procesando...' : 'SELECCIONAR PLAN'}
+                  SELECCIONAR PLAN
                 </button>
               </div>
             )
           })}
         </div>
+      )}
+
+      {selectedPlan && (
+        <CheckoutModal
+          planId={selectedPlan.id}
+          planName={selectedPlan.name}
+          amount={selectedPlan.price}
+          onClose={() => setSelectedPlan(null)}
+          onSuccess={() => navigate('/payment-success')}
+        />
       )}
     </Layout>
   )
